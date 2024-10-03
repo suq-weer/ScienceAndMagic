@@ -11,7 +11,7 @@ public class IceElementMobEffect extends AbstractNatureElementMobEffect{
 
 	@Override
 	public boolean applyEffectTick(@NotNull LivingEntity pLivingEntity, int pAmplifier) {
-		pLivingEntity.setTicksFrozen(600);
+		pLivingEntity.setTicksFrozen(140);
 		return true;
 	}
 }

@@ -7,8 +7,10 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
+import top.xiaosuoaa.scienceandmagic.basic.element.ElementFunctions;
 
 @Mod(ScienceAndMagic.MOD_ID)
 public class ScienceAndMagic {
@@ -20,6 +22,11 @@ public class ScienceAndMagic {
 		modEventBus.addListener(this::commonSetup);
 		NeoModRegister.register(modEventBus);
 		NeoForge.EVENT_BUS.register(this);
+	}
+
+	@SubscribeEvent
+	private void scanEffect(MobEffectEvent.Added event) {
+		ElementFunctions.scanElement(event);
 	}
 
 	private void commonSetup(final FMLCommonSetupEvent event) {

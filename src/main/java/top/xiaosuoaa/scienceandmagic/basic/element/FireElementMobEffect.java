@@ -16,6 +16,4 @@ public class FireElementMobEffect extends AbstractNatureElementMobEffect{
 		}
 		return true;
 	}
-
-
 }

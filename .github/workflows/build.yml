@@ -1,9 +1,6 @@
 name: Build
 
-on:
-  push:
-    tags:
-      "v*"
+on: [push]
 
 jobs:
   build:
@@ -29,6 +26,6 @@ jobs:
       - name: Create Release and Upload Release Asset
         uses: softprops/action-gh-release@v1
         with:
-          files:  build/libs/moreliver-*.jar
+          files:  build/libs/science_and_magic-*.jar
           draft: true
           fail_on_unmatched_files: true
