@@ -29,3 +29,4 @@ jobs:
           files:  build/libs/science_and_magic-*.jar
           draft: true
           fail_on_unmatched_files: true
+          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
