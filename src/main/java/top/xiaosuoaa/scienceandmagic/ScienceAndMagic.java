@@ -19,6 +19,7 @@ public class ScienceAndMagic {
 
 	public ScienceAndMagic(IEventBus modEventBus)
 	{
+		info("开始监听……");
 		modEventBus.addListener(this::commonSetup);
 		NeoModRegister.register(modEventBus);
 		NeoForge.EVENT_BUS.register(this);
@@ -30,6 +31,7 @@ public class ScienceAndMagic {
 	}
 
 	private void commonSetup(final FMLCommonSetupEvent event) {
+		 warn("此版本为早期开发版本，可能会有极度破坏游戏的问题发生！");
 	}
 
 	@SubscribeEvent
@@ -39,5 +41,8 @@ public class ScienceAndMagic {
 
 	public static void info(String s) {
 		LOGGER.info(s);
+	}
+	public static void warn(String s) {
+		LOGGER.warn(s);
 	}
 }
