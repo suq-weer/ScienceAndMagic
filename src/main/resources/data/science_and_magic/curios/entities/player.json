@@ -1,0 +1,11 @@
+{
+  "entities": ["player"],
+  "slots": [
+	"bone_body",
+  	"bone_hand_left",
+	"bone_hand_right",
+	"bone_head",
+	"bone_leg_left",
+	"bone_leg_right"
+  ]
+}

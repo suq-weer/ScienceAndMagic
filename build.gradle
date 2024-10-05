@@ -31,6 +31,10 @@ repositories {
 			includeGroup("software.bernie.geckolib")
 		}
 	}
+    maven {
+        name = "OctoStudios"
+        url = uri("https://maven.octo-studios.com/releases")
+    }
 }
 
 base {
@@ -112,6 +116,9 @@ dependencies {
     //emi
     compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
 	runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
+
+    //curios api
+    implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}"
 
     //Geckolib
     dependencies {

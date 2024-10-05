@@ -1,0 +1,14 @@
+{
+  "curios.identifier.bone_body": "§d[魂骨] §r躯干",
+  "curios.identifier.bone_hand_left": "§d[魂骨] §r左臂",
+  "curios.identifier.bone_hand_right": "§d[魂骨] §r右臂",
+  "curios.identifier.bone_head": "§d[魂骨] §r头骨",
+  "curios.identifier.bone_leg_left": "§d[魂骨] §r左腿",
+  "curios.identifier.bone_leg_right": "§d[魂骨] §r右腿",
+  "effect.science_and_magic.element_fire": "火元素附着",
+  "effect.science_and_magic.element_ice": "冰元素附着",
+  "effect.science_and_magic.element_water": "水元素附着",
+  "effect.science_and_magic.element_stone": "石元素附着",
+  "effect.science_and_magic.element_wood": "木元素附着",
+  "effect.science_and_magic.element_lighting": "电元素附着"
+}
