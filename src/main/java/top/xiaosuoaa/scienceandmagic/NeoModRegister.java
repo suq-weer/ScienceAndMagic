@@ -1,16 +1,36 @@
 package top.xiaosuoaa.scienceandmagic;
 
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import top.xiaosuoaa.scienceandmagic.basic.creativetabs.ModCreativeModeTabs;
 import top.xiaosuoaa.scienceandmagic.basic.element.*;
+import top.xiaosuoaa.scienceandmagic.basic.element.foritem.ElementComponentRecord;
+import top.xiaosuoaa.scienceandmagic.nature.resource.SequoiaBoat;
+import top.xiaosuoaa.scienceandmagic.nature.resource.SequoiaLogBlock;
 
 import java.util.function.Supplier;
+
+import static top.xiaosuoaa.scienceandmagic.basic.element.foritem.ElementComponentRecord.ELEMENT_COMPONENT_RECORD_CODEC;
+import static top.xiaosuoaa.scienceandmagic.basic.element.foritem.ElementComponentRecord.ELEMENT_COMPONENT_RECORD_STREAM_CODEC;
 
 public class NeoModRegister {
 	//药水效果
@@ -31,7 +51,66 @@ public class NeoModRegister {
 	public static final Supplier<MobEffect> ELEMENT_LIGHTING = MOB_EFFECT.register("element_lighting", ()->new LightingElementMobEffect(MobEffectCategory.NEUTRAL, 0x3b3075));
 	public static final Supplier<MobEffect> ELEMENT_WATER = MOB_EFFECT.register("element_water", ()->new WaterElementMobEffect(MobEffectCategory.NEUTRAL, 0x474163));
 
+	//自定义数据组件
+	public static final DeferredRegister.DataComponents COMPONENTS = DeferredRegister.createDataComponents(ScienceAndMagic.MOD_ID);
+	public static final DeferredHolder<DataComponentType<?>, DataComponentType<ElementComponentRecord>> ELEMENT_COMPONENT = COMPONENTS.registerComponentType(
+			"element_component", builder -> builder
+					.persistent(ELEMENT_COMPONENT_RECORD_CODEC)
+					.networkSynchronized(ELEMENT_COMPONENT_RECORD_STREAM_CODEC)
+	);
+
+
+	//方块
+	public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(ScienceAndMagic.MOD_ID);
+	public static final DeferredRegister.Items BLOCKITEMS = DeferredRegister.createItems(ScienceAndMagic.MOD_ID);
+	//红杉木衍生物
+	public static final Supplier<Block> SEQUOIA_LOG = BLOCKS.register(
+			"sequoia_log",
+			()->new SequoiaLogBlock(BlockBehaviour.Properties.of()
+					.mapColor(MapColor.COLOR_ORANGE)
+					.instrument(NoteBlockInstrument.BASS)
+					.strength(2.0F)
+					.sound(SoundType.WOOD)
+					.ignitedByLava()));
+	public static final DeferredItem<BlockItem> SEQUOIA_LOG_ITEM = BLOCKITEMS.registerSimpleBlockItem("sequoia_log", SEQUOIA_LOG);
+	public static final Supplier<Block> SEQUOIA_PLANK = BLOCKS.register(
+			"sequoia_plank",
+			()->new Block(BlockBehaviour.Properties.of()
+					.mapColor(MapColor.COLOR_ORANGE)
+					.instrument(NoteBlockInstrument.BASS)
+					.strength(2.0F, 3.0F)
+					.sound(SoundType.WOOD)
+					.ignitedByLava()));
+	public static final DeferredItem<BlockItem> SEQUOIA_PLANK_ITEM = BLOCKITEMS.registerSimpleBlockItem("sequoia_plank", SEQUOIA_PLANK);
+	public static final Supplier<Block> PEELED_SEQUOIA_LOG = BLOCKS.register(
+			"peeled_sequoia_log",
+			()->new SequoiaLogBlock(BlockBehaviour.Properties.of()
+					.mapColor(MapColor.TERRACOTTA_ORANGE)
+					.instrument(NoteBlockInstrument.BASS)
+					.strength(2.0F)
+					.sound(SoundType.WOOD)
+					.ignitedByLava()));
+	public static final DeferredItem<BlockItem> PEELED_SEQUOIA_LOG_ITEM = BLOCKITEMS.registerSimpleBlockItem("peeled_sequoia_log", PEELED_SEQUOIA_LOG);
+
+	//物品
+	public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ScienceAndMagic.MOD_ID);
+	//红杉木衍生物
+	public static final Supplier<Item> SEQUOIA_BOAT_ITEM = ITEMS.register("sequoia_boat", ()->new BoatItem(false, Boat.Type.DARK_OAK, new Item.Properties()));
+
+	//实体类型
+	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE, ScienceAndMagic.MOD_ID);
+	//船
+	public static final Supplier<EntityType<SequoiaBoat>> SEQUOIA_BOAT = ENTITY_TYPES.register("sequoia_boat", () -> EntityType.Builder.of(SequoiaBoat::new, MobCategory.MISC).sized(2, 0.5F).build("sequoia_boat"));
+
+	/**
+	 * <p>自定义物品等内容的注册方法。
+	 * <p>注：自定义创造选项卡详见 {@link ModCreativeModeTabs}，自定义实体渲染器详见{@link ClientModEvents#onClientSetup(FMLClientSetupEvent)}
+	 */
 	public static void register(IEventBus eventBus) {
 		MOB_EFFECT.register(eventBus);
+		COMPONENTS.register(eventBus);
+		BLOCKS.register(eventBus);
+		BLOCKITEMS.register(eventBus);
+		ENTITY_TYPES.register(eventBus);
 	}
 }

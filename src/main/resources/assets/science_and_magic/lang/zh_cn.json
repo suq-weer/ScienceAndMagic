@@ -8,7 +8,19 @@
   "effect.science_and_magic.element_fire": "火元素附着",
   "effect.science_and_magic.element_ice": "冰元素附着",
   "effect.science_and_magic.element_water": "水元素附着",
-  "effect.science_and_magic.element_stone": "石元素附着",
+  "effect.science_and_magic.element_stone": "岩元素附着",
   "effect.science_and_magic.element_wood": "木元素附着",
-  "effect.science_and_magic.element_lighting": "电元素附着"
+  "effect.science_and_magic.element_lighting": "电元素附着",
+  "tooltip.science_and_magic.element_list": "拥有的元素附着：",
+  "tooltip.science_and_magic.element_fire_short": "火",
+  "tooltip.science_and_magic.element_ice_short": "冰",
+  "tooltip.science_and_magic.element_water_short": "水",
+  "tooltip.science_and_magic.element_stone_short": "岩",
+  "tooltip.science_and_magic.element_wood_short": "木",
+  "tooltip.science_and_magic.element_lighting_short": "电",
+  "itemGroup.science_and_magic.science_and_magic": "科学与魔法模组物品",
+  "block.science_and_magic.sequoia_log": "红杉木原木",
+  "block.science_and_magic.peeled_sequoia_log": "去皮红杉木原木",
+  "block.science_and_magic.sequaoia_planks": "红杉木木板",
+  "entity.science_and_magic.sequoia_boat": "红杉木船"
 }

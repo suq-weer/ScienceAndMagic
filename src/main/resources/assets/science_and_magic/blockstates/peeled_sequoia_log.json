@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "science_and_magic:block/nature/sequoia/peeled_log",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "science_and_magic:block/nature/sequoia/peeled_log"
+    },
+    "axis=z": {
+      "model": "science_and_magic:block/nature/sequoia/peeled_log",
+      "x": 90
+    }
+  }
+}

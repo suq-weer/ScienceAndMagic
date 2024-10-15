@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+	"end": "science_and_magic:block/nature/sequoia/log_top",
+	"side": "science_and_magic:block/nature/sequoia/log_side"
+  }
+}

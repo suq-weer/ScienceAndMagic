@@ -1,5 +1,6 @@
 {
   "replace": true,
   "size": 1,
-  "operation": "SET"
+  "operation": "SET",
+  "icon": "science_and_magic:slot/bone_hand_left"
 }

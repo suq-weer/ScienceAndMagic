@@ -1,12 +1,17 @@
 package top.xiaosuoaa.scienceandmagic.basic.element;
 
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
+import top.xiaosuoaa.scienceandmagic.NeoModRegister;
 import top.xiaosuoaa.scienceandmagic.ScienceAndMagic;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 
 public class ElementFunctions {
 	/**
@@ -60,7 +65,7 @@ public class ElementFunctions {
 	 * 元素附着生物效果检测。
 	 * @param event 即{@link MobEffectEvent.Added}事件。
 	 */
-	public static void scanElement(MobEffectEvent.Added event) {
+	public static void scanElementEffect(MobEffectEvent.Added event) {
 		MobEffectInstance willAddEffect = event.getEffectInstance();
 		LivingEntity eventEntity = event.getEntity();
 		Collection<MobEffectInstance> activeEffects = eventEntity.getActiveEffects();
@@ -71,5 +76,19 @@ public class ElementFunctions {
 				eventEntity.removeEffect(effectInstance.getEffect());
 			}
 		}
+	}
+
+	public static int scanElementComponent(DataComponentMap componentMap) {
+		if (componentMap.has(NeoModRegister.ELEMENT_COMPONENT.get())) {
+			List<String> record = Objects.requireNonNull(componentMap.get(NeoModRegister.ELEMENT_COMPONENT.get())).element();
+
+		}
+		return -1;
+	}
+
+	//TODO：元素附着伤害检测。
+	public static void itemGiveElement(ItemStack itemStack, LivingEntity hurtEntity) {
+		DataComponentMap componentMap = itemStack.getComponents();
+		int result = scanElementComponent(componentMap);
 	}
 }

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+	"all": "science_and_magic:block/nature/sequoia/plank"
+  }
+}
