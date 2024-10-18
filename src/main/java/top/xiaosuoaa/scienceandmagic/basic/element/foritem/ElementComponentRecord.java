@@ -27,6 +27,9 @@ public record ElementComponentRecord(List<String> element) {
 	);
 	public static final StreamCodec<ByteBuf, ElementComponentRecord> BUF_ELEMENT_COMPONENT_RECORD_STREAM_CODEC = StreamCodec.unit(new ElementComponentRecord(new ArrayList<>()));
 
+	/*
+	 * 读取元素组件转换为组件外显译名。
+	 */
 	public static void elementTranslateCom(@NotNull List<String> list, List<Component> componentList) {
 		MutableComponent line = Component.translatable("tooltip.science_and_magic.element_list").withStyle(ChatFormatting.BOLD);
 		for (String s : list) {

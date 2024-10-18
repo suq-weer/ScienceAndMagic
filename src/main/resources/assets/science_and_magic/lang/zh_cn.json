@@ -22,5 +22,9 @@
   "block.science_and_magic.sequoia_log": "红杉木原木",
   "block.science_and_magic.peeled_sequoia_log": "去皮红杉木原木",
   "block.science_and_magic.sequaoia_planks": "红杉木木板",
-  "entity.science_and_magic.sequoia_boat": "红杉木船"
+  "entity.science_and_magic.sequoia_boat": "红杉木船",
+  "item.science_and_magic.sequoia_chest_boat": "红杉木箱船",
+  "entity.science_and_magic.sequoia_chest_boat": "红杉木箱船",
+  "item.science_and_magic.sequoia_boat": "红杉木船",
+  "block.science_and_magic.sequoia_plank": "红杉木木板"
 }

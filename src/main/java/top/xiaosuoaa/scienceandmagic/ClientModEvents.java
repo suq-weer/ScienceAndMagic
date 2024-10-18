@@ -11,6 +11,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 import org.slf4j.Logger;
 import top.xiaosuoaa.scienceandmagic.nature.resource.SequoiaBoatRenderer;
+import top.xiaosuoaa.scienceandmagic.nature.resource.SequoiaChestBoatRenderer;
 
 import static top.xiaosuoaa.scienceandmagic.ScienceAndMagic.MOD_ID;
 import static top.xiaosuoaa.scienceandmagic.basic.element.foritem.ChangeMinecraftElement.changeElement;
@@ -25,6 +26,7 @@ public class ClientModEvents {
 		LOGGER.info("Minecraft 登录账号：{}", Minecraft.getInstance().getUser().getName());
 		event.enqueueWork(()->{
 			EntityRenderers.register(NeoModRegister.SEQUOIA_BOAT.get(), (EntityRendererProvider.Context pContext) -> new SequoiaBoatRenderer(pContext, false));
+			EntityRenderers.register(NeoModRegister.SEQUOIA_CHEST_BOAT.get(), (EntityRendererProvider.Context pContext) -> new SequoiaChestBoatRenderer(pContext, true));
 		});
 	}
 

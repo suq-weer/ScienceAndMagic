@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+	"layer0": "science_and_magic:item/nature/sequoia/boat_chest"
+  }
+}

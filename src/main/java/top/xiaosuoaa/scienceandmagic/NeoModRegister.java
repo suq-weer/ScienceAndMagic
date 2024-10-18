@@ -9,7 +9,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -24,8 +23,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import top.xiaosuoaa.scienceandmagic.basic.creativetabs.ModCreativeModeTabs;
 import top.xiaosuoaa.scienceandmagic.basic.element.*;
 import top.xiaosuoaa.scienceandmagic.basic.element.foritem.ElementComponentRecord;
-import top.xiaosuoaa.scienceandmagic.nature.resource.SequoiaBoat;
-import top.xiaosuoaa.scienceandmagic.nature.resource.SequoiaLogBlock;
+import top.xiaosuoaa.scienceandmagic.nature.resource.*;
 
 import java.util.function.Supplier;
 
@@ -95,12 +93,14 @@ public class NeoModRegister {
 	//物品
 	public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ScienceAndMagic.MOD_ID);
 	//红杉木衍生物
-	public static final Supplier<Item> SEQUOIA_BOAT_ITEM = ITEMS.register("sequoia_boat", ()->new BoatItem(false, Boat.Type.DARK_OAK, new Item.Properties()));
+	public static final Supplier<Item> SEQUOIA_BOAT_ITEM = ITEMS.register("sequoia_boat", ()->new SequoiaBoatItem(new Item.Properties()));
+	public static final Supplier<Item> SEQUOIA_CHEST_BOAT_ITEM = ITEMS.register("sequoia_chest_boat", ()->new SequoiaChestBoatItem(new Item.Properties()));
 
 	//实体类型
 	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE, ScienceAndMagic.MOD_ID);
 	//船
 	public static final Supplier<EntityType<SequoiaBoat>> SEQUOIA_BOAT = ENTITY_TYPES.register("sequoia_boat", () -> EntityType.Builder.of(SequoiaBoat::new, MobCategory.MISC).sized(2, 0.5F).build("sequoia_boat"));
+	public static final Supplier<EntityType<SequoiaChestBoat>> SEQUOIA_CHEST_BOAT = ENTITY_TYPES.register("sequoia_chest_boat", () -> EntityType.Builder.of(SequoiaChestBoat::new, MobCategory.MISC).sized(2, 0.5F).build("sequoia_chest_boat"));
 
 	/**
 	 * <p>自定义物品等内容的注册方法。
@@ -111,6 +111,7 @@ public class NeoModRegister {
 		COMPONENTS.register(eventBus);
 		BLOCKS.register(eventBus);
 		BLOCKITEMS.register(eventBus);
+		ITEMS.register(eventBus);
 		ENTITY_TYPES.register(eventBus);
 	}
 }

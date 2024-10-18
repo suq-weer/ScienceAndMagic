@@ -27,6 +27,8 @@ public class ModCreativeModeTabs {
 					output.accept(NeoModRegister.SEQUOIA_LOG_ITEM);
 					output.accept(NeoModRegister.SEQUOIA_PLANK_ITEM);
 					output.accept(NeoModRegister.PEELED_SEQUOIA_LOG_ITEM);
+					output.accept(NeoModRegister.SEQUOIA_BOAT_ITEM.get());
+					output.accept(NeoModRegister.SEQUOIA_CHEST_BOAT_ITEM.get());
 
 					ScienceAndMagic.info("已构建模组全物品创造选项卡");
 				})
