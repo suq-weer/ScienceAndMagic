@@ -9,20 +9,28 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.CeilingHangingSignBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.capabilities.EntityCapability;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import top.xiaosuoaa.scienceandmagic.basic.creativetabs.ModCreativeModeTabs;
 import top.xiaosuoaa.scienceandmagic.basic.element.*;
 import top.xiaosuoaa.scienceandmagic.basic.element.foritem.ElementComponentRecord;
+import top.xiaosuoaa.scienceandmagic.basic.magic.EPEnergy;
+import top.xiaosuoaa.scienceandmagic.client.ClientModEvents;
 import top.xiaosuoaa.scienceandmagic.nature.resource.*;
 
 import java.util.function.Supplier;
@@ -31,6 +39,16 @@ import static top.xiaosuoaa.scienceandmagic.basic.element.foritem.ElementCompone
 import static top.xiaosuoaa.scienceandmagic.basic.element.foritem.ElementComponentRecord.ELEMENT_COMPONENT_RECORD_STREAM_CODEC;
 
 public class NeoModRegister {
+	//实体能力
+	public static final EntityCapability<EPEnergy,Void> PLAYER_EP_HANDLER =
+            EntityCapability.createVoid(ResourceLocation.fromNamespaceAndPath(ScienceAndMagic.MOD_ID,"player_ep_handler"),
+                    EPEnergy.class);
+
+	//树木类型
+	//红杉木
+	public static final BlockSetType SEQUOIA_BLOCK_SET_TYPE = new BlockSetType("sequoia");
+	public static final WoodType SEQUOIA_WOOD_TYPE = new WoodType("sequoia", SEQUOIA_BLOCK_SET_TYPE);
+
 	//药水效果
 	public static final DeferredRegister<MobEffect> MOB_EFFECT = DeferredRegister.create(Registries.MOB_EFFECT, ScienceAndMagic.MOD_ID);
 	//元素效果
@@ -61,6 +79,7 @@ public class NeoModRegister {
 	//方块
 	public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(ScienceAndMagic.MOD_ID);
 	public static final DeferredRegister.Items BLOCKITEMS = DeferredRegister.createItems(ScienceAndMagic.MOD_ID);
+	public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ScienceAndMagic.MOD_ID);
 	//红杉木衍生物
 	public static final Supplier<Block> SEQUOIA_LOG = BLOCKS.register(
 			"sequoia_log",
@@ -89,6 +108,21 @@ public class NeoModRegister {
 					.sound(SoundType.WOOD)
 					.ignitedByLava()));
 	public static final DeferredItem<BlockItem> PEELED_SEQUOIA_LOG_ITEM = BLOCKITEMS.registerSimpleBlockItem("peeled_sequoia_log", PEELED_SEQUOIA_LOG);
+	public static final Supplier<CeilingHangingSignBlock> DARK_OAK_HANGING_SIGN = BLOCKS.register(
+			"sequoia_hanging_sign",
+			()->new CeilingHangingSignBlock(
+					SEQUOIA_WOOD_TYPE,
+					BlockBehaviour.Properties.of()
+							.mapColor(MapColor.COLOR_ORANGE)
+							.forceSolidOn()
+							.instrument(NoteBlockInstrument.BASS)
+							.noCollission()
+							.strength(1.0F)
+							.ignitedByLava()
+			)
+	);
+	public static final Supplier<Block> SEQUOIA_LEAVES = BLOCKS.register("sequoia_leaves", SequoiaLeavesBlock::new);
+
 
 	//物品
 	public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ScienceAndMagic.MOD_ID);

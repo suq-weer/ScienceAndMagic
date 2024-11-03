@@ -7,9 +7,12 @@ import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.vehicle.Boat;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import top.xiaosuoaa.scienceandmagic.ScienceAndMagic;
 
+@OnlyIn(Dist.CLIENT)
 public class SequoiaChestBoatRenderer extends BoatRenderer {
 	private static final ResourceLocation SEQUOIA_CHEST_BOAT_LOCATION = ResourceLocation.fromNamespaceAndPath(ScienceAndMagic.MOD_ID, "textures/entity/boat/sequoia_chest_boat.png");
 

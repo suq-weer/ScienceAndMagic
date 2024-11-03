@@ -1,17 +1,21 @@
 package top.xiaosuoaa.scienceandmagic.basic.element;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import top.xiaosuoaa.scienceandmagic.NeoModRegister;
 import top.xiaosuoaa.scienceandmagic.ScienceAndMagic;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 public class ElementFunctions {
 	/**
@@ -78,17 +82,55 @@ public class ElementFunctions {
 		}
 	}
 
-	public static int scanElementComponent(DataComponentMap componentMap) {
+	public static List<Supplier<MobEffect>> scanElementComponent(DataComponentMap componentMap/*, LivingIncomingDamageEvent event*/) {
 		if (componentMap.has(NeoModRegister.ELEMENT_COMPONENT.get())) {
-			List<String> record = Objects.requireNonNull(componentMap.get(NeoModRegister.ELEMENT_COMPONENT.get())).element();
-
-		}
-		return -1;
+			List<Supplier<MobEffect>> result = new ArrayList<>();
+	        List<String> record = Objects.requireNonNull(componentMap.get(NeoModRegister.ELEMENT_COMPONENT.get())).element();
+	        for (String s : record) {
+	            if (s == null) {
+	                return null;
+	            }
+	            switch (s) {
+	                case "fire" -> result.add(NeoModRegister.ELEMENT_FIRE);
+	                case "ice" -> result.add(NeoModRegister.ELEMENT_ICE);
+	                case "wood" -> result.add(NeoModRegister.ELEMENT_WOOD);
+	                case "stone" -> result.add(NeoModRegister.ELEMENT_STONE);
+	                case "lighting" -> result.add(NeoModRegister.ELEMENT_LIGHTING);
+	                case "water" -> result.add(NeoModRegister.ELEMENT_WATER);
+	            }
+	        }
+	        return result;
+	    }
+	    return null;
 	}
 
-	//TODO：元素附着伤害检测。
-	public static void itemGiveElement(ItemStack itemStack, LivingEntity hurtEntity) {
-		DataComponentMap componentMap = itemStack.getComponents();
-		int result = scanElementComponent(componentMap);
+	//元素附着伤害检测。
+	public static void itemGiveEntityElement(ItemStack itemStack, LivingEntity hurtEntity, LivingIncomingDamageEvent event) {
+        DataComponentMap componentMap = itemStack.getComponents();
+        List<Supplier<MobEffect>> result = scanElementComponent(componentMap, event);
+        if (result!= null) {
+			int fTW = -1;
+            int wSL = -1;
+            for (Supplier<MobEffect> effect : result) {
+	            for (int i = 0; i < hurtEntity.getActiveEffects().size(); i++) {
+					if (fTW != -1 || wSL != -1) {
+						break;
+					}
+		            MobEffectInstance existingEffect = (MobEffectInstance) hurtEntity.getActiveEffects().toArray()[i];
+					fTW = scanElementRestrainFIW(effect.get(), existingEffect.getEffect().value());
+                    wSL = scanElementRestrainWSL(effect.get(), existingEffect.getEffect().value());
+	            }
+				hurtEntity.addEffect(new MobEffectInstance(Holder.direct(effect.get()), 100, 1));
+            }
+            if (fTW != -1 || wSL != -1) {
+                if (fTW >= 0) {
+                    event.setAmount(event.getAmount() * 2);
+                }
+                if (wSL >= 0) {
+                    event.setAmount(event.getAmount() / 2);
+                }
+            }
+        }
 	}
+
 }

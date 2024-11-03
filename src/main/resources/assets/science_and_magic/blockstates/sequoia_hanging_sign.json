@@ -1,0 +1,55 @@
+{
+  "variants": {
+	"": {
+	  "model": "science_and_magic:block/nature/sequoia/hanging_sign"
+	},
+	"attached=true": {
+	  "model": "science_and_magic:block/nature/sequoia/hanging_sign"
+	},
+	"rotation=1": {
+	  "y": 22.5
+	},
+	"rotation=2": {
+	  "y": 45
+	},
+	"rotation=3": {
+	  "y": 67.5
+	},
+	"rotation=4": {
+	  "y": 90
+	},
+	"rotation=5": {
+	  "y": 112.5
+	},
+	"rotation=6": {
+	  "y": 135
+	},
+	"rotation=7": {
+	  "y": 157.5
+	},
+	"rotation=8": {
+	  "y": 180
+	},
+	"rotation=9": {
+	  "y": 202.5
+	},
+	"rotation=10": {
+	  "y": 225
+	},
+	"rotation=11": {
+	  "y": 247.5
+	},
+	"rotation=12": {
+	  "y": 270
+	},
+	"rotation=13": {
+	  "y": 292.5
+	},
+	"rotation=14": {
+	  "y": 315
+	},
+	"rotation=15": {
+	  "y": 337.5
+	}
+  }
+}

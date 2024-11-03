@@ -1,4 +1,4 @@
-package top.xiaosuoaa.scienceandmagic;
+package top.xiaosuoaa.scienceandmagic.client;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
@@ -8,8 +8,10 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 import org.slf4j.Logger;
+import top.xiaosuoaa.scienceandmagic.NeoModRegister;
 import top.xiaosuoaa.scienceandmagic.nature.resource.SequoiaBoatRenderer;
 import top.xiaosuoaa.scienceandmagic.nature.resource.SequoiaChestBoatRenderer;
 
@@ -33,5 +35,10 @@ public class ClientModEvents {
 	@SubscribeEvent
 	public static void modifyComponents(ModifyDefaultComponentsEvent event) {
 		changeElement(event);
+	}
+
+	@SubscribeEvent
+	public static void registerBlockColor(RegisterColorHandlersEvent.Block event) {
+		ModBlockAndItemColor.registerBlockColor(event);
 	}
 }

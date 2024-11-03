@@ -11,7 +11,7 @@
   "effect.science_and_magic.element_stone": "岩元素附着",
   "effect.science_and_magic.element_wood": "木元素附着",
   "effect.science_and_magic.element_lighting": "电元素附着",
-  "tooltip.science_and_magic.element_list": "拥有的元素附着：",
+  "tooltip.science_and_magic.element_list": "拥有的元素附着: ",
   "tooltip.science_and_magic.element_fire_short": "火",
   "tooltip.science_and_magic.element_ice_short": "冰",
   "tooltip.science_and_magic.element_water_short": "水",
@@ -26,5 +26,6 @@
   "item.science_and_magic.sequoia_chest_boat": "红杉木箱船",
   "entity.science_and_magic.sequoia_chest_boat": "红杉木箱船",
   "item.science_and_magic.sequoia_boat": "红杉木船",
-  "block.science_and_magic.sequoia_plank": "红杉木木板"
+  "block.science_and_magic.sequoia_plank": "红杉木木板",
+  "gui.science_and_magic.ep": "魔力值: "
 }
