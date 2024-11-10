@@ -30,7 +30,7 @@ jobs:
       - name: Create Release and Upload Release Asset
         uses: softprops/action-gh-release@v1
         with:
-          files:  build/libs/
+          files: build/libs/science_and_magic-*.jar
           prerelease: true
           fail_on_unmatched_files: true
           token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
