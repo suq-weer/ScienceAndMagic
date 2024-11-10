@@ -9,9 +9,13 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 import org.slf4j.Logger;
 import top.xiaosuoaa.scienceandmagic.NeoModRegister;
+import top.xiaosuoaa.scienceandmagic.basic.keybinding.KeyBinding;
+import top.xiaosuoaa.scienceandmagic.client.gui.screen.PlayerCapabilityScreen;
 import top.xiaosuoaa.scienceandmagic.nature.resource.SequoiaBoatRenderer;
 import top.xiaosuoaa.scienceandmagic.nature.resource.SequoiaChestBoatRenderer;
 
@@ -41,4 +45,14 @@ public class ClientModEvents {
 	public static void registerBlockColor(RegisterColorHandlersEvent.Block event) {
 		ModBlockAndItemColor.registerBlockColor(event);
 	}
+
+	@SubscribeEvent
+	public static void clientLoad(RegisterMenuScreensEvent event) {
+		event.register(NeoModRegister.PLAYER_CAPABILITY_GUI.get(), PlayerCapabilityScreen::new);
+	}
+
+	@SubscribeEvent
+	public static void onKeyRegister(RegisterKeyMappingsEvent event) {
+        event.register(KeyBinding.PLAYER_CAPABILITY_KEY);
+    }
 }

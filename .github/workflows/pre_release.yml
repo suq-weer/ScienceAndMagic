@@ -1,6 +1,10 @@
-name: Build
+name: Pre Release
 
-on: [push]
+on:
+  push:
+    tags:
+      - "v*-pre"
+
 
 jobs:
   build:
@@ -23,9 +27,10 @@ jobs:
         with:
           arguments: build
 
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
+      - name: Create Release and Upload Release Asset
+        uses: softprops/action-gh-release@v1
         with:
-          name: Artifacts
-          path: |
-            build/libs/
+          files:  build/libs/
+          prerelease: true
+          fail_on_unmatched_files: true
+          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}

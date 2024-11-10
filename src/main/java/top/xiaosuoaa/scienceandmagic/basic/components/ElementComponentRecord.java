@@ -1,4 +1,4 @@
-package top.xiaosuoaa.scienceandmagic.basic.element.foritem;
+package top.xiaosuoaa.scienceandmagic.basic.components;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

@@ -3,11 +3,14 @@ package top.xiaosuoaa.scienceandmagic;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -16,26 +19,27 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
-import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.DirectionalPayloadHandler;
 import net.neoforged.neoforge.network.registration.HandlerThread;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import org.slf4j.Logger;
+import top.xiaosuoaa.scienceandmagic.basic.capability.PlayerCapability;
+import top.xiaosuoaa.scienceandmagic.basic.capability.PlayerCapabilityData;
+import top.xiaosuoaa.scienceandmagic.basic.capability.PlayerCapabilityProvider;
 import top.xiaosuoaa.scienceandmagic.basic.creativetabs.ModCreativeModeTabs;
 import top.xiaosuoaa.scienceandmagic.basic.element.ElementFunctions;
-import top.xiaosuoaa.scienceandmagic.basic.magic.EPEnergy;
-import top.xiaosuoaa.scienceandmagic.basic.magic.EPEnergyData;
-import top.xiaosuoaa.scienceandmagic.basic.magic.EPEnergyProvider;
+import top.xiaosuoaa.scienceandmagic.basic.keybinding.KeyBindingNetwork;
 
+import java.util.Objects;
 import java.util.Optional;
 
-@GameTestHolder(ScienceAndMagic.MOD_ID)
 @Mod(ScienceAndMagic.MOD_ID)
 public class ScienceAndMagic {
 	public static final String MOD_ID = "science_and_magic";
@@ -84,17 +88,40 @@ public class ScienceAndMagic {
 		}
 	}
 
+	@SubscribeEvent
+	public void onPlayerAttack(LivingDamageEvent.Pre event) {
+		int playerAttackSync = playerAttackSync(event);
+		// ...
+		event.setNewDamage(playerAttackSync);
+	}
+	private static int playerAttackSync(LivingDamageEvent.Pre event) {
+		LivingEntity eventEntity = event.getEntity();
+		if (eventEntity instanceof ServerPlayer && eventEntity.getCapability(NeoModRegister.PLAYER_CAPABILITY_HANDLER) != null) {
+			DamageSource eventSource = event.getSource();
+			ItemStack weaponItem = eventSource.getWeaponItem();
+			int weaponType = 0;
+			if (weaponItem != null) {
+				DataComponentMap weaponItemComponents = weaponItem.getComponents();
+				if (weaponItemComponents.has(NeoModRegister.WEAPON_CATEGORY_COMPONENT.get())) {
+					weaponType = Objects.requireNonNull(weaponItemComponents.get(NeoModRegister.WEAPON_CATEGORY_COMPONENT.get())).weaponCategory();
+				}
+			}
+			return PlayerCapability.useAttackCount((Player) eventEntity, weaponType);
+		}
+		return 1;
+	}
+
 	private void onPlayerTick(PlayerTickEvent.Post event) {
 		if(!event.getEntity().level().isClientSide()) {
-			Optional<EPEnergy> optionalPlayerThirst = Optional.ofNullable(event.getEntity().getCapability(NeoModRegister.PLAYER_EP_HANDLER));
-			optionalPlayerThirst .ifPresent(epEnergy -> {
-				if(epEnergy.getEnergyStored() < epEnergy.getMaxEnergyStored()) {
-					epEnergy.receiveEnergy(1, false);
+			Optional<PlayerCapability> optionalPlayerThirst = Optional.ofNullable(event.getEntity().getCapability(NeoModRegister.PLAYER_CAPABILITY_HANDLER));
+			optionalPlayerThirst .ifPresent(playerCapability -> {
+				if(playerCapability.getEp() < playerCapability.getMEp()) {
+					playerCapability.addEp(1, false);
 				}
-				if (epEnergy.getEnergyStored() > epEnergy.getMaxEnergyStored()) {
-					epEnergy.setEp(epEnergy.getMaxEnergyStored());
+				if (playerCapability.getEp() > playerCapability.getMEp()) {
+					playerCapability.setEp(playerCapability.getMEp());
 				}
-				PacketDistributor.sendToPlayer((ServerPlayer) event.getEntity(), new EPEnergyData(epEnergy.getEnergyStored()));
+				PacketDistributor.sendToPlayer((ServerPlayer) event.getEntity(), new PlayerCapabilityData(playerCapability.getEp()));
 			});
 		}
 	}
@@ -102,12 +129,12 @@ public class ScienceAndMagic {
 	private void onPlayerJoinWorld(EntityJoinLevelEvent event) {
 		if(!event.getLevel().isClientSide()) {
 			if(event.getEntity() instanceof ServerPlayer player) {
-				EPEnergy capability = player.getCapability(NeoModRegister.PLAYER_EP_HANDLER);
-				if (capability != null && capability.getEnergyStored() == 0) {
-					capability.setMaxEp(100);
+				PlayerCapability capability = player.getCapability(NeoModRegister.PLAYER_CAPABILITY_HANDLER);
+				if (capability != null && capability.getEp() == 0) {
+					capability.setMEp(100);
 				}
-				Optional<EPEnergy> epEnergy1 = Optional.ofNullable(capability);
-				epEnergy1.ifPresent(epEnergy -> PacketDistributor.sendToPlayer(player, new EPEnergyData(epEnergy.getEnergyStored())));
+				Optional<PlayerCapability> epEnergy1 = Optional.ofNullable(capability);
+				epEnergy1.ifPresent(playerCapability -> PacketDistributor.sendToPlayer(player, new PlayerCapabilityData(playerCapability.getEp())));
 			}
 		}
 	}
@@ -115,28 +142,36 @@ public class ScienceAndMagic {
 	private void register(final RegisterPayloadHandlersEvent event) {
         final PayloadRegistrar registrar = event.registrar(HandlerThread.NETWORK.name());
         registrar.playBidirectional(
-            EPEnergyData.TYPE,
-            EPEnergyData.STREAM_CODEC,
+            PlayerCapabilityData.TYPE,
+            PlayerCapabilityData.STREAM_CODEC,
             new DirectionalPayloadHandler<>(
-		            (epEnergyData, context) -> {
+		            (playerCapabilityData, context) -> {
 			            Minecraft minecraft = Minecraft.getInstance();
 			            LocalPlayer player = minecraft.player;
 			            if(player != null) {
-				            EPEnergy capability = player.getCapability(NeoModRegister.PLAYER_EP_HANDLER);
+				            PlayerCapability capability = player.getCapability(NeoModRegister.PLAYER_CAPABILITY_HANDLER);
 				            if (capability != null) {
-					            capability.setEp(epEnergyData.ep());
+					            capability.setEp(playerCapabilityData.ep());
 				            }
 			            }
 		            },
-		            (epEnergyData, context) -> {}
+		            (playerCapabilityData, context) -> {}
+            )
+        );
+		registrar.playBidirectional(
+            KeyBindingNetwork.TYPE,
+            KeyBindingNetwork.STREAM_CODEC,
+            new DirectionalPayloadHandler<>(
+		            (payload, context) -> {},
+		            KeyBindingNetwork::handleData
             )
         );
 	}
 
 	private void registerCapabilities(RegisterCapabilitiesEvent event) {
-		event.registerEntity(NeoModRegister.PLAYER_EP_HANDLER,
+		event.registerEntity(NeoModRegister.PLAYER_CAPABILITY_HANDLER,
 				EntityType.PLAYER,
-				new EPEnergyProvider());
+				new PlayerCapabilityProvider());
 	}
 
 	public static void info(String s) {

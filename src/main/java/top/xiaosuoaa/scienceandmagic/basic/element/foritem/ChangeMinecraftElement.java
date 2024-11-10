@@ -5,6 +5,7 @@ import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import top.xiaosuoaa.scienceandmagic.NeoModRegister;
+import top.xiaosuoaa.scienceandmagic.basic.components.ElementComponentRecord;
 
 import java.util.ArrayList;
 import java.util.List;

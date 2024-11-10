@@ -27,5 +27,20 @@
   "entity.science_and_magic.sequoia_chest_boat": "红杉木箱船",
   "item.science_and_magic.sequoia_boat": "红杉木船",
   "block.science_and_magic.sequoia_plank": "红杉木木板",
-  "gui.science_and_magic.ep": "魔力值: "
+  "gui.science_and_magic.ep": "魔力值: ",
+  "gui.science_and_magic.player_capability_gui.tooltip_max_ep": "魔力值上限",
+  "gui.science_and_magic.player_capability_gui.tooltip_science_attack": "科技熟练加成",
+  "gui.science_and_magic.player_capability_gui.tooltip_blood_counter": "致命率",
+  "gui.science_and_magic.player_capability_gui.label_player_capability_gui": "玩家属性面板",
+  "gui.science_and_magic.player_capability_gui.tooltip_magic_defend": "法伤防御率",
+  "gui.science_and_magic.player_capability_gui.tooltip_magic_attack": "法伤加成",
+  "gui.science_and_magic.player_capability_gui.tooltip_physic_defend": "物伤防御率",
+  "gui.science_and_magic.player_capability_gui.tooltip_blood_count": "致命加伤",
+  "gui.science_and_magic.player_capability_gui.tooltip_base_attack": "基础攻击力",
+  "gui.science_and_magic.player_capability_gui.tooltip_player_energy": "体魄",
+  "gui.science_and_magic.player_capability_gui.tooltip_magic_count": "意志力",
+  "gui.science_and_magic.player_capability_gui.tooltip_base_defend": "基础防御力",
+  "gui.science_and_magic.player_capability_gui.tooltip_physic_attack": "物伤加成",
+  "key.category.science_and_magic": "科技与魔法",
+  "key.science_and_magic.open_player_capability": "打开玩家属性面板"
 }

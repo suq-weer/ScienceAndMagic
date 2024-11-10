@@ -82,7 +82,7 @@ public class ElementFunctions {
 		}
 	}
 
-	public static List<Supplier<MobEffect>> scanElementComponent(DataComponentMap componentMap/*, LivingIncomingDamageEvent event*/) {
+	public static List<Supplier<MobEffect>> scanElementComponent(DataComponentMap componentMap, LivingIncomingDamageEvent event) {
 		if (componentMap.has(NeoModRegister.ELEMENT_COMPONENT.get())) {
 			List<Supplier<MobEffect>> result = new ArrayList<>();
 	        List<String> record = Objects.requireNonNull(componentMap.get(NeoModRegister.ELEMENT_COMPONENT.get())).element();

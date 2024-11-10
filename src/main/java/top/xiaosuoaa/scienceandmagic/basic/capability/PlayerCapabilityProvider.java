@@ -1,4 +1,4 @@
-package top.xiaosuoaa.scienceandmagic.basic.magic;
+package top.xiaosuoaa.scienceandmagic.basic.capability;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -10,24 +10,24 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 
-public class EPEnergyProvider implements ICapabilityProvider<Player,Void, EPEnergy>, INBTSerializable<Tag> {
-	private EPEnergy epStorage = null;
+public class PlayerCapabilityProvider implements ICapabilityProvider<Player,Void, PlayerCapability>, INBTSerializable<Tag> {
+	private PlayerCapability epStorage = null;
 	private Player player;
 
-	private EPEnergy createPlayerEP(@NotNull Player object) {
-		player = object;
-		int level = object.experienceLevel;
+	private PlayerCapability createPlayerEP(@NotNull Player player) {
+		this.player = player;
+		int level = player.experienceLevel;
 		double v = level * level / 0.1 + 100;
         if (this.epStorage == null) {
-	        this.epStorage = new EPEnergy((int) v, 0);
+	        this.epStorage = new PlayerCapability((int) v);
         } else {
-	        this.epStorage.setMaxEp((int) v);
+	        this.epStorage.setMEp((int) v);
         }
         return this.epStorage;
     }
 
 	@Override
-	public @Nullable EPEnergy getCapability(@NotNull Player object, Void context) {
+	public @Nullable PlayerCapability getCapability(@NotNull Player object, Void context) {
 		return this.createPlayerEP(object);
 	}
 

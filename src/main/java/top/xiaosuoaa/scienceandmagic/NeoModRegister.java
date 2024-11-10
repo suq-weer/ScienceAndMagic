@@ -9,6 +9,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -23,26 +24,29 @@ import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.capabilities.EntityCapability;
+import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import top.xiaosuoaa.scienceandmagic.basic.capability.PlayerCapability;
+import top.xiaosuoaa.scienceandmagic.basic.components.WeaponCategoryComponentRecord;
 import top.xiaosuoaa.scienceandmagic.basic.creativetabs.ModCreativeModeTabs;
 import top.xiaosuoaa.scienceandmagic.basic.element.*;
-import top.xiaosuoaa.scienceandmagic.basic.element.foritem.ElementComponentRecord;
-import top.xiaosuoaa.scienceandmagic.basic.magic.EPEnergy;
+import top.xiaosuoaa.scienceandmagic.basic.components.ElementComponentRecord;
 import top.xiaosuoaa.scienceandmagic.client.ClientModEvents;
+import top.xiaosuoaa.scienceandmagic.client.gui.menu.PlayerCapabilityMenu;
 import top.xiaosuoaa.scienceandmagic.nature.resource.*;
 
 import java.util.function.Supplier;
 
-import static top.xiaosuoaa.scienceandmagic.basic.element.foritem.ElementComponentRecord.ELEMENT_COMPONENT_RECORD_CODEC;
-import static top.xiaosuoaa.scienceandmagic.basic.element.foritem.ElementComponentRecord.ELEMENT_COMPONENT_RECORD_STREAM_CODEC;
+import static top.xiaosuoaa.scienceandmagic.basic.components.ElementComponentRecord.ELEMENT_COMPONENT_RECORD_CODEC;
+import static top.xiaosuoaa.scienceandmagic.basic.components.ElementComponentRecord.ELEMENT_COMPONENT_RECORD_STREAM_CODEC;
 
 public class NeoModRegister {
 	//实体能力
-	public static final EntityCapability<EPEnergy,Void> PLAYER_EP_HANDLER =
-            EntityCapability.createVoid(ResourceLocation.fromNamespaceAndPath(ScienceAndMagic.MOD_ID,"player_ep_handler"),
-                    EPEnergy.class);
+	public static final EntityCapability<PlayerCapability,Void> PLAYER_CAPABILITY_HANDLER =
+            EntityCapability.createVoid(ResourceLocation.fromNamespaceAndPath(ScienceAndMagic.MOD_ID,"player_capability_handler"),
+                    PlayerCapability.class);
 
 	//树木类型
 	//红杉木
@@ -73,6 +77,11 @@ public class NeoModRegister {
 			"element_component", builder -> builder
 					.persistent(ELEMENT_COMPONENT_RECORD_CODEC)
 					.networkSynchronized(ELEMENT_COMPONENT_RECORD_STREAM_CODEC)
+	);
+	public static final DeferredHolder<DataComponentType<?>, DataComponentType<WeaponCategoryComponentRecord>> WEAPON_CATEGORY_COMPONENT = COMPONENTS.registerComponentType(
+			"weapon_category_component", builder -> builder
+					.persistent(WeaponCategoryComponentRecord.WEAPON_CATEGORY_COMPONENT_RECORD_CODEC)
+					.networkSynchronized(WeaponCategoryComponentRecord.WEAPON_CATEGORY_COMPONENT_RECORD_STREAM_CODEC)
 	);
 
 
@@ -136,6 +145,10 @@ public class NeoModRegister {
 	public static final Supplier<EntityType<SequoiaBoat>> SEQUOIA_BOAT = ENTITY_TYPES.register("sequoia_boat", () -> EntityType.Builder.of(SequoiaBoat::new, MobCategory.MISC).sized(2, 0.5F).build("sequoia_boat"));
 	public static final Supplier<EntityType<SequoiaChestBoat>> SEQUOIA_CHEST_BOAT = ENTITY_TYPES.register("sequoia_chest_boat", () -> EntityType.Builder.of(SequoiaChestBoat::new, MobCategory.MISC).sized(2, 0.5F).build("sequoia_chest_boat"));
 
+	// Screens/Menus
+	public static final DeferredRegister<MenuType<?>> MENU_TYPE = DeferredRegister.create(Registries.MENU, ScienceAndMagic.MOD_ID);
+	public static final Supplier<MenuType<PlayerCapabilityMenu>> PLAYER_CAPABILITY_GUI = MENU_TYPE.register("player_capability_gui", () -> IMenuTypeExtension.create((windowId, inv, data) -> new PlayerCapabilityMenu(windowId, inv)));
+
 	/**
 	 * <p>自定义物品等内容的注册方法。
 	 * <p>注：自定义创造选项卡详见 {@link ModCreativeModeTabs}，自定义实体渲染器详见{@link ClientModEvents#onClientSetup(FMLClientSetupEvent)}
@@ -147,5 +160,6 @@ public class NeoModRegister {
 		BLOCKITEMS.register(eventBus);
 		ITEMS.register(eventBus);
 		ENTITY_TYPES.register(eventBus);
+		MENU_TYPE.register(eventBus);
 	}
 }
