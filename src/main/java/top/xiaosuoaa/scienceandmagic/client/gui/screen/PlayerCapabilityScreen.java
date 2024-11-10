@@ -62,7 +62,7 @@ public class PlayerCapabilityScreen extends AbstractContainerScreen<PlayerCapabi
 
 	@Override
 	protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int gx, int gy) {
-		RenderSystem.setShaderColor(1, 1, 1, 0.3f);
+		RenderSystem.setShaderColor(1, 1, 1, 1);
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
 		guiGraphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
