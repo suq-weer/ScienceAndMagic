@@ -33,14 +33,19 @@ import top.xiaosuoaa.scienceandmagic.basic.components.WeaponCategoryComponentRec
 import top.xiaosuoaa.scienceandmagic.basic.creativetabs.ModCreativeModeTabs;
 import top.xiaosuoaa.scienceandmagic.basic.element.*;
 import top.xiaosuoaa.scienceandmagic.basic.components.ElementComponentRecord;
+import top.xiaosuoaa.scienceandmagic.block.nature.sequoia.SequoiaLeavesBlock;
+import top.xiaosuoaa.scienceandmagic.block.nature.sequoia.SequoiaLogBlock;
 import top.xiaosuoaa.scienceandmagic.client.ClientModEvents;
 import top.xiaosuoaa.scienceandmagic.client.gui.menu.PlayerCapabilityMenu;
-import top.xiaosuoaa.scienceandmagic.nature.resource.*;
+import top.xiaosuoaa.scienceandmagic.entity.nature.sequoia.SequoiaBoat;
+import top.xiaosuoaa.scienceandmagic.entity.nature.sequoia.SequoiaChestBoat;
+import top.xiaosuoaa.scienceandmagic.item.magic.init.*;
+import top.xiaosuoaa.scienceandmagic.item.nature.sequoia.SequoiaBoatItem;
+import top.xiaosuoaa.scienceandmagic.item.nature.sequoia.SequoiaChestBoatItem;
 
 import java.util.function.Supplier;
 
-import static top.xiaosuoaa.scienceandmagic.basic.components.ElementComponentRecord.ELEMENT_COMPONENT_RECORD_CODEC;
-import static top.xiaosuoaa.scienceandmagic.basic.components.ElementComponentRecord.ELEMENT_COMPONENT_RECORD_STREAM_CODEC;
+import static top.xiaosuoaa.scienceandmagic.basic.components.ElementComponentRecord.*;
 
 public class NeoModRegister {
 	//实体能力
@@ -138,6 +143,13 @@ public class NeoModRegister {
 	//红杉木衍生物
 	public static final Supplier<Item> SEQUOIA_BOAT_ITEM = ITEMS.register("sequoia_boat", ()->new SequoiaBoatItem(new Item.Properties()));
 	public static final Supplier<Item> SEQUOIA_CHEST_BOAT_ITEM = ITEMS.register("sequoia_chest_boat", ()->new SequoiaChestBoatItem(new Item.Properties()));
+	//魔法符文
+	public static final Supplier<Item> FIRE_INIT_ITEM = ITEMS.register("fire_init", FireInitItem::new);
+	public static final Supplier<Item> WATER_INIT_ITEM = ITEMS.register("water_init", WaterInitItem::new);
+	public static final Supplier<Item> ICE_INIT_ITEM = ITEMS.register("ice_init", IceInitItem::new);
+	public static final Supplier<Item> WOOD_INIT_ITEM = ITEMS.register("wood_init", WoodInitItem::new);
+	public static final Supplier<Item> STONE_INIT_ITEM = ITEMS.register("stone_init", StoneInitItem::new);
+	public static final Supplier<Item> LIGHTING_INIT_ITEM = ITEMS.register("lighting_init", LightingInitItem::new);
 
 	//实体类型
 	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE, ScienceAndMagic.MOD_ID);

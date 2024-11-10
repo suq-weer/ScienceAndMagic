@@ -1,4 +1,4 @@
-package top.xiaosuoaa.scienceandmagic.nature.resource;
+package top.xiaosuoaa.scienceandmagic.entity.nature.sequoia;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.model.ListModel;
@@ -13,16 +13,16 @@ import org.jetbrains.annotations.NotNull;
 import top.xiaosuoaa.scienceandmagic.ScienceAndMagic;
 
 @OnlyIn(Dist.CLIENT)
-public class SequoiaChestBoatRenderer extends BoatRenderer {
-	private static final ResourceLocation SEQUOIA_CHEST_BOAT_LOCATION = ResourceLocation.fromNamespaceAndPath(ScienceAndMagic.MOD_ID, "textures/entity/boat/sequoia_chest_boat.png");
+public class SequoiaBoatRenderer extends BoatRenderer {
+	private static final ResourceLocation SEQUOIA_BOAT_LOCATION = ResourceLocation.fromNamespaceAndPath(ScienceAndMagic.MOD_ID, "textures/entity/boat/sequoia_boat.png");
 
-	public SequoiaChestBoatRenderer(EntityRendererProvider.Context pContext, boolean pChestBoat) {
+	public SequoiaBoatRenderer(EntityRendererProvider.Context pContext, boolean pChestBoat) {
 		super(pContext, pChestBoat);
 	}
 
 	@Override
 	public @NotNull Pair<ResourceLocation, ListModel<Boat>> getModelWithLocation(@NotNull Boat pEntity) {
-		return Pair.of(SEQUOIA_CHEST_BOAT_LOCATION, super.getModelWithLocation(pEntity).getSecond());
+		return Pair.of(SEQUOIA_BOAT_LOCATION, super.getModelWithLocation(pEntity).getSecond());
 	}
 
 	@Override

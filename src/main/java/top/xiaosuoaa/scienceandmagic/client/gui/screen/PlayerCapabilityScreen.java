@@ -62,7 +62,7 @@ public class PlayerCapabilityScreen extends AbstractContainerScreen<PlayerCapabi
 
 	@Override
 	protected void renderBg(GuiGraphics guiGraphics, float partialTicks, int gx, int gy) {
-		RenderSystem.setShaderColor(1, 1, 1, 1);
+		RenderSystem.setShaderColor(1, 1, 1, 0.3f);
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
 		guiGraphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
@@ -89,15 +89,15 @@ public class PlayerCapabilityScreen extends AbstractContainerScreen<PlayerCapabi
 				guiGraphics.drawString(this.font, Component.literal("mEP: ").append(String.valueOf(capability.getMEp())), 70, 19, -12829636, false);
 				guiGraphics.drawString(this.font, Component.literal("bATK: ").append(String.valueOf(capability.getBaseATK())), 70, 37, -12829636, false);
 				guiGraphics.drawString(this.font, Component.literal("bDEF: ").append(String.valueOf(capability.getBaseDEF())), 124, 37, -12829636, false);
-				guiGraphics.drawString(this.font, Component.literal("BLD: ").append(capability.getBLD() * 100 +"%"), 70, 55, -12829636, false);
+				guiGraphics.drawString(this.font, Component.literal("BLD: ").append(String.valueOf(capability.getBLD() * 100).substring(0,3) +"%"), 70, 55, -12829636, false);
 				guiGraphics.drawString(this.font, Component.literal("BLDk: ").append(String.valueOf(capability.getBLDk())), 124, 55, -12829636, false);
-				guiGraphics.drawString(this.font, Component.literal("pATK: ").append(capability.getPhysicATK()*100+"%"), 70, 73, -12829636, false);
-				guiGraphics.drawString(this.font, Component.literal("mATK: ").append(capability.getMagicATK()*100+"%"), 124, 73, -12829636, false);
-				guiGraphics.drawString(this.font, Component.literal("sATK: ").append(capability.getScienceATK()*100+"%"), 70, 91, -12829636, false);
-				guiGraphics.drawString(this.font, Component.literal("pDEF: ").append(capability.getPhysicDEF()*100+"%"), 70, 109, -12829636, false);
-				guiGraphics.drawString(this.font, Component.literal("mDEF: ").append(capability.getMagicDEF()*100+"%"), 124, 109, -12829636, false);
-				guiGraphics.drawString(this.font, Component.literal("PE: ").append(capability.getPE()*100+"%"), 7, 66, -12829636, false);
-				guiGraphics.drawString(this.font, Component.literal("MC: ").append(capability.getMC()*100+"%"), 7, 86, -12829636, false);
+				guiGraphics.drawString(this.font, Component.literal("pATK: ").append(String.valueOf(capability.getPhysicATK()*100).substring(0,3)+"%"), 70, 73, -12829636, false);
+				guiGraphics.drawString(this.font, Component.literal("mATK: ").append(String.valueOf(capability.getMagicATK()*100).substring(0,3)+"%"), 124, 73, -12829636, false);
+				guiGraphics.drawString(this.font, Component.literal("sATK: ").append(String.valueOf(capability.getScienceATK()*100).substring(0,3)+"%"), 70, 91, -12829636, false);
+				guiGraphics.drawString(this.font, Component.literal("pDEF: ").append(String.valueOf(capability.getPhysicDEF()*100).substring(0,3)+"%"), 70, 109, -12829636, false);
+				guiGraphics.drawString(this.font, Component.literal("mDEF: ").append(String.valueOf(capability.getMagicDEF()*100).substring(0,3)+"%"), 124, 109, -12829636, false);
+				guiGraphics.drawString(this.font, Component.literal("PE: ").append(String.valueOf(capability.getPE()*100).substring(0,3)+"%"), 7, 66, -12829636, false);
+				guiGraphics.drawString(this.font, Component.literal("MC: ").append(String.valueOf(capability.getMC()*100).substring(0,3)+"%"), 7, 86, -12829636, false);
 				guiGraphics.drawString(this.font, Component.translatable("gui.science_and_magic.player_capability_gui.label_player_capability_gui"), 7, 6, -12829636, false);
 			}
 		} else {

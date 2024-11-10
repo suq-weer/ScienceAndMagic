@@ -1,4 +1,4 @@
-package top.xiaosuoaa.scienceandmagic.nature.resource;
+package top.xiaosuoaa.scienceandmagic.block.nature.sequoia;
 
 import net.minecraft.world.level.block.RotatedPillarBlock;
 

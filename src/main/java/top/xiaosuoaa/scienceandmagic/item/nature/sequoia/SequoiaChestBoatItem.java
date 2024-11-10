@@ -1,4 +1,4 @@
-package top.xiaosuoaa.scienceandmagic.nature.resource;
+package top.xiaosuoaa.scienceandmagic.item.nature.sequoia;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
@@ -18,6 +18,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import top.xiaosuoaa.scienceandmagic.NeoModRegister;
+import top.xiaosuoaa.scienceandmagic.entity.nature.sequoia.SequoiaChestBoat;
 
 import java.util.List;
 import java.util.function.Predicate;

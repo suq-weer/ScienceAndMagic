@@ -16,8 +16,8 @@ import org.slf4j.Logger;
 import top.xiaosuoaa.scienceandmagic.NeoModRegister;
 import top.xiaosuoaa.scienceandmagic.basic.keybinding.KeyBinding;
 import top.xiaosuoaa.scienceandmagic.client.gui.screen.PlayerCapabilityScreen;
-import top.xiaosuoaa.scienceandmagic.nature.resource.SequoiaBoatRenderer;
-import top.xiaosuoaa.scienceandmagic.nature.resource.SequoiaChestBoatRenderer;
+import top.xiaosuoaa.scienceandmagic.entity.nature.sequoia.SequoiaBoatRenderer;
+import top.xiaosuoaa.scienceandmagic.entity.nature.sequoia.SequoiaChestBoatRenderer;
 
 import static top.xiaosuoaa.scienceandmagic.ScienceAndMagic.MOD_ID;
 import static top.xiaosuoaa.scienceandmagic.basic.element.foritem.ChangeMinecraftElement.changeElement;

@@ -11,19 +11,19 @@ import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 
 public class PlayerCapabilityProvider implements ICapabilityProvider<Player,Void, PlayerCapability>, INBTSerializable<Tag> {
-	private PlayerCapability epStorage = null;
+	private PlayerCapability playerCapability = null;
 	private Player player;
 
 	private PlayerCapability createPlayerEP(@NotNull Player player) {
 		this.player = player;
 		int level = player.experienceLevel;
 		double v = level * level / 0.1 + 100;
-        if (this.epStorage == null) {
-	        this.epStorage = new PlayerCapability((int) v);
+        if (this.playerCapability == null) {
+	        this.playerCapability = new PlayerCapability((int) v);
         } else {
-	        this.epStorage.setMEp((int) v);
+	        this.playerCapability.setMEp((int) v);
         }
-        return this.epStorage;
+        return this.playerCapability;
     }
 
 	@Override

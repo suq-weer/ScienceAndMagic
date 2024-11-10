@@ -1,4 +1,4 @@
-package top.xiaosuoaa.scienceandmagic.nature.resource;
+package top.xiaosuoaa.scienceandmagic.entity.nature.sequoia;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
