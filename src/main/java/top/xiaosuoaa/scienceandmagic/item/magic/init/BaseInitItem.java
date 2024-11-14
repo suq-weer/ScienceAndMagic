@@ -7,18 +7,38 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib.animatable.GeoItem;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache;
+import software.bernie.geckolib.animation.*;
 import top.xiaosuoaa.scienceandmagic.NeoModRegister;
 import top.xiaosuoaa.scienceandmagic.basic.components.ElementComponentRecord;
 
 import java.util.List;
 
-public class BaseInitItem extends Item {
+public class BaseInitItem extends Item implements GeoItem {
 	public BaseInitItem(List<String> arrayList) {
 		super(new Properties()
 				.rarity(Rarity.UNCOMMON)
 				.stacksTo(1)
 				.component(NeoModRegister.ELEMENT_COMPONENT.get(), new ElementComponentRecord(arrayList))
 		);
+	}
+
+	private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
+	private <T extends BaseInitItem> PlayState playState(AnimationState<T> animationState) {
+		animationState.getController().setAnimation(RawAnimation.begin().thenLoop("animation.init.loop"));
+		return PlayState.CONTINUE;
+	}
+
+	@Override
+	public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+		controllers.add(new AnimationController<>(this, "controller", 0, this::playState));
+	}
+
+	@Override
+	public AnimatableInstanceCache getAnimatableInstanceCache() {
+		return cache;
 	}
 
 	@Override
