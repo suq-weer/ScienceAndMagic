@@ -173,7 +173,7 @@ public class NeoModRegister {
 	// Screens/Menus
 	public static final DeferredRegister<MenuType<?>> MENU_TYPE = DeferredRegister.create(Registries.MENU, ScienceAndMagic.MOD_ID);
 	public static final Supplier<MenuType<PlayerCapabilityMenu>> PLAYER_CAPABILITY_GUI = MENU_TYPE.register("player_capability_gui", () -> IMenuTypeExtension.create((windowId, inv, data) -> new PlayerCapabilityMenu(windowId, inv)));
-	public static final Supplier<MenuType<WasherGUIMenu>> WASHER_GUI = MENU_TYPE.register("washer_gui", () -> IMenuTypeExtension.create((pint, pIn, pB)->new WasherGUIMenu(pint, pIn)));
+	public static final Supplier<MenuType<WasherGUIMenu>> WASHER_GUI = MENU_TYPE.register("washer_gui", () -> IMenuTypeExtension.create(WasherGUIMenu::new));
 
 	/**
 	 * <p>自定义物品等内容的注册方法。
