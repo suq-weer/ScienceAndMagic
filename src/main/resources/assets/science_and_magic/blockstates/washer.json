@@ -1,0 +1,34 @@
+{
+  "variants": {
+	"facing=north,is_working=false": {
+	  "model": "science_and_magic:block/crafter/washer",
+	  "y": 180
+	},
+	"facing=east,is_working=false": {
+	  "model": "science_and_magic:block/crafter/washer",
+	  "y": 270
+	},
+	"facing=south,is_working=false": {
+	  "model": "science_and_magic:block/crafter/washer"
+	},
+	"facing=west,is_working=false": {
+	  "model": "science_and_magic:block/crafter/washer",
+	  "y": 90
+	},
+	"facing=north,is_working=true": {
+	  "model": "science_and_magic:block/crafter/washer_working",
+	  "y": 180
+	},
+	"facing=east,is_working=true": {
+	  "model": "science_and_magic:block/crafter/washer_working",
+	  "y": 270
+	},
+	"facing=south,is_working=true": {
+	  "model": "science_and_magic:block/crafter/washer_working"
+	},
+	"facing=west,is_working=true": {
+	  "model": "science_and_magic:block/crafter/washer_working",
+	  "y": 90
+	}
+  }
+}

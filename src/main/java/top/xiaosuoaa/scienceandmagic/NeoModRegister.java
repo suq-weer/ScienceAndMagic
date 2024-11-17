@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.capabilities.EntityCapability;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
@@ -29,14 +30,17 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import top.xiaosuoaa.scienceandmagic.basic.capability.PlayerCapability;
+import top.xiaosuoaa.scienceandmagic.basic.components.ElementComponentRecord;
 import top.xiaosuoaa.scienceandmagic.basic.components.WeaponCategoryComponentRecord;
 import top.xiaosuoaa.scienceandmagic.basic.creativetabs.ModCreativeModeTabs;
 import top.xiaosuoaa.scienceandmagic.basic.element.*;
-import top.xiaosuoaa.scienceandmagic.basic.components.ElementComponentRecord;
+import top.xiaosuoaa.scienceandmagic.block.crafter.WasherBlock;
+import top.xiaosuoaa.scienceandmagic.block.crafter.WasherBlockEntity;
 import top.xiaosuoaa.scienceandmagic.block.nature.sequoia.SequoiaLeavesBlock;
 import top.xiaosuoaa.scienceandmagic.block.nature.sequoia.SequoiaLogBlock;
 import top.xiaosuoaa.scienceandmagic.client.ClientModEvents;
 import top.xiaosuoaa.scienceandmagic.client.gui.menu.PlayerCapabilityMenu;
+import top.xiaosuoaa.scienceandmagic.client.gui.menu.WasherGUIMenu;
 import top.xiaosuoaa.scienceandmagic.entity.nature.sequoia.SequoiaBoat;
 import top.xiaosuoaa.scienceandmagic.entity.nature.sequoia.SequoiaChestBoat;
 import top.xiaosuoaa.scienceandmagic.item.magic.init.*;
@@ -45,8 +49,10 @@ import top.xiaosuoaa.scienceandmagic.item.nature.sequoia.SequoiaChestBoatItem;
 
 import java.util.function.Supplier;
 
-import static top.xiaosuoaa.scienceandmagic.basic.components.ElementComponentRecord.*;
+import static top.xiaosuoaa.scienceandmagic.basic.components.ElementComponentRecord.ELEMENT_COMPONENT_RECORD_CODEC;
+import static top.xiaosuoaa.scienceandmagic.basic.components.ElementComponentRecord.ELEMENT_COMPONENT_RECORD_STREAM_CODEC;
 
+@Mod(ScienceAndMagic.MOD_ID)
 public class NeoModRegister {
 	//实体能力
 	public static final EntityCapability<PlayerCapability,Void> PLAYER_CAPABILITY_HANDLER =
@@ -136,7 +142,14 @@ public class NeoModRegister {
 			)
 	);
 	public static final Supplier<Block> SEQUOIA_LEAVES = BLOCKS.register("sequoia_leaves", SequoiaLeavesBlock::new);
+	public static final Supplier<BlockItem> SEQUOIA_LEAVES_ITEM = BLOCKITEMS.registerSimpleBlockItem("sequoia_leaves", SEQUOIA_LEAVES);
+	//工作方块
+	public static final Supplier<Block> WASHER = BLOCKS.register("washer", WasherBlock::new);
+	public static final Supplier<BlockItem> WASHER_ITEM = BLOCKITEMS.registerSimpleBlockItem("washer", WASHER);
 
+	//块实体
+	public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPE = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ScienceAndMagic.MOD_ID);
+	public static final Supplier<BlockEntityType<WasherBlockEntity>> WASHER_BLOCK_ENTITY = BLOCK_ENTITY_TYPE.register("washer_entity", ()->BlockEntityType.Builder.of(WasherBlockEntity::new, NeoModRegister.WASHER.get()).build(null));
 
 	//物品
 	public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ScienceAndMagic.MOD_ID);
@@ -160,6 +173,7 @@ public class NeoModRegister {
 	// Screens/Menus
 	public static final DeferredRegister<MenuType<?>> MENU_TYPE = DeferredRegister.create(Registries.MENU, ScienceAndMagic.MOD_ID);
 	public static final Supplier<MenuType<PlayerCapabilityMenu>> PLAYER_CAPABILITY_GUI = MENU_TYPE.register("player_capability_gui", () -> IMenuTypeExtension.create((windowId, inv, data) -> new PlayerCapabilityMenu(windowId, inv)));
+	public static final Supplier<MenuType<WasherGUIMenu>> WASHER_GUI = MENU_TYPE.register("washer_gui", () -> IMenuTypeExtension.create((pint, pIn, pB)->new WasherGUIMenu(pint, pIn)));
 
 	/**
 	 * <p>自定义物品等内容的注册方法。
@@ -170,6 +184,7 @@ public class NeoModRegister {
 		COMPONENTS.register(eventBus);
 		BLOCKS.register(eventBus);
 		BLOCKITEMS.register(eventBus);
+		BLOCK_ENTITY_TYPE.register(eventBus);
 		ITEMS.register(eventBus);
 		ENTITY_TYPES.register(eventBus);
 		MENU_TYPE.register(eventBus);

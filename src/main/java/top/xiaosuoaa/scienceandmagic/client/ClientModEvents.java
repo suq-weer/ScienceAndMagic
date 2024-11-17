@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import top.xiaosuoaa.scienceandmagic.NeoModRegister;
 import top.xiaosuoaa.scienceandmagic.basic.keybinding.KeyBinding;
 import top.xiaosuoaa.scienceandmagic.client.gui.screen.PlayerCapabilityScreen;
+import top.xiaosuoaa.scienceandmagic.client.gui.screen.WasherGUIScreen;
 import top.xiaosuoaa.scienceandmagic.entity.nature.sequoia.SequoiaBoatRenderer;
 import top.xiaosuoaa.scienceandmagic.entity.nature.sequoia.SequoiaChestBoatRenderer;
 
@@ -49,6 +50,7 @@ public class ClientModEvents {
 	@SubscribeEvent
 	public static void clientLoad(RegisterMenuScreensEvent event) {
 		event.register(NeoModRegister.PLAYER_CAPABILITY_GUI.get(), PlayerCapabilityScreen::new);
+		event.register(NeoModRegister.WASHER_GUI.get(), WasherGUIScreen::new);
 	}
 
 	@SubscribeEvent

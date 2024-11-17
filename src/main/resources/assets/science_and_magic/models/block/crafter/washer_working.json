@@ -1,0 +1,6 @@
+{
+  "parent": "science_and_magic:block/crafter/washer",
+  "textures": {
+	"1": "science_and_magic:block/washer_working"
+  }
+}

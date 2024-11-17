@@ -29,6 +29,7 @@ public class ModCreativeModeTabs {
 					output.accept(NeoModRegister.PEELED_SEQUOIA_LOG_ITEM);
 					output.accept(NeoModRegister.SEQUOIA_BOAT_ITEM.get());
 					output.accept(NeoModRegister.SEQUOIA_CHEST_BOAT_ITEM.get());
+					output.accept(NeoModRegister.SEQUOIA_LEAVES_ITEM.get());
 					//魔法符文
 					output.accept(NeoModRegister.ICE_INIT_ITEM.get());
 					output.accept(NeoModRegister.FIRE_INIT_ITEM.get());
@@ -36,6 +37,8 @@ public class ModCreativeModeTabs {
 					output.accept(NeoModRegister.WOOD_INIT_ITEM.get());
 					output.accept(NeoModRegister.LIGHTING_INIT_ITEM.get());
 					output.accept(NeoModRegister.STONE_INIT_ITEM.get());
+					//工作方块
+					output.accept(NeoModRegister.WASHER_ITEM.get());
 
 					ScienceAndMagic.info("已构建模组全物品创造选项卡");
 				})
