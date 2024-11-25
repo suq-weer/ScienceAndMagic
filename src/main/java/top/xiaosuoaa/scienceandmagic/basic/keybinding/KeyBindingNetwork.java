@@ -11,7 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 import top.xiaosuoaa.scienceandmagic.ScienceAndMagic;
-import top.xiaosuoaa.scienceandmagic.client.gui.menu.PlayerCapabilityMenu;
+import top.xiaosuoaa.scienceandmagic.menu.PlayerCapabilityMenu;
 
 public record KeyBindingNetwork(int eventType, int pressedms) implements CustomPacketPayload {
 	public static final Type<KeyBindingNetwork> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(ScienceAndMagic.MOD_ID, "key_player_capability_key"));

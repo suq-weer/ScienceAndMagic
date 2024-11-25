@@ -39,13 +39,13 @@ import top.xiaosuoaa.scienceandmagic.block.crafter.WasherBlockEntity;
 import top.xiaosuoaa.scienceandmagic.block.nature.sequoia.SequoiaLeavesBlock;
 import top.xiaosuoaa.scienceandmagic.block.nature.sequoia.SequoiaLogBlock;
 import top.xiaosuoaa.scienceandmagic.client.ClientModEvents;
-import top.xiaosuoaa.scienceandmagic.client.gui.menu.PlayerCapabilityMenu;
-import top.xiaosuoaa.scienceandmagic.client.gui.menu.WasherGUIMenu;
+import top.xiaosuoaa.scienceandmagic.menu.PlayerCapabilityMenu;
 import top.xiaosuoaa.scienceandmagic.entity.nature.sequoia.SequoiaBoat;
 import top.xiaosuoaa.scienceandmagic.entity.nature.sequoia.SequoiaChestBoat;
 import top.xiaosuoaa.scienceandmagic.item.magic.init.*;
 import top.xiaosuoaa.scienceandmagic.item.nature.sequoia.SequoiaBoatItem;
 import top.xiaosuoaa.scienceandmagic.item.nature.sequoia.SequoiaChestBoatItem;
+import top.xiaosuoaa.scienceandmagic.menu.WasherBlockEntityMenu;
 
 import java.util.function.Supplier;
 
@@ -144,12 +144,12 @@ public class NeoModRegister {
 	public static final Supplier<Block> SEQUOIA_LEAVES = BLOCKS.register("sequoia_leaves", SequoiaLeavesBlock::new);
 	public static final Supplier<BlockItem> SEQUOIA_LEAVES_ITEM = BLOCKITEMS.registerSimpleBlockItem("sequoia_leaves", SEQUOIA_LEAVES);
 	//工作方块
-	public static final Supplier<Block> WASHER = BLOCKS.register("washer", WasherBlock::new);
-	public static final Supplier<BlockItem> WASHER_ITEM = BLOCKITEMS.registerSimpleBlockItem("washer", WASHER);
+	public static final Supplier<Block> WASHER_BLOCK = BLOCKS.register("washer", WasherBlock::new);
+	public static final Supplier<BlockItem> WASHER_BLOCK_ITEM = BLOCKITEMS.registerSimpleBlockItem("washer", WASHER_BLOCK);
 
 	//块实体
 	public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPE = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, ScienceAndMagic.MOD_ID);
-	public static final Supplier<BlockEntityType<WasherBlockEntity>> WASHER_BLOCK_ENTITY = BLOCK_ENTITY_TYPE.register("washer_entity", ()->BlockEntityType.Builder.of(WasherBlockEntity::new, NeoModRegister.WASHER.get()).build(null));
+	public static final Supplier<BlockEntityType<WasherBlockEntity>> WASHER_BLOCK_ENTITY = BLOCK_ENTITY_TYPE.register("washer_block_entity", ()-> BlockEntityType.Builder.of(WasherBlockEntity::new,NeoModRegister.WASHER_BLOCK.get()).build(null));
 
 	//物品
 	public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ScienceAndMagic.MOD_ID);
@@ -173,7 +173,7 @@ public class NeoModRegister {
 	// Screens/Menus
 	public static final DeferredRegister<MenuType<?>> MENU_TYPE = DeferredRegister.create(Registries.MENU, ScienceAndMagic.MOD_ID);
 	public static final Supplier<MenuType<PlayerCapabilityMenu>> PLAYER_CAPABILITY_GUI = MENU_TYPE.register("player_capability_gui", () -> IMenuTypeExtension.create((windowId, inv, data) -> new PlayerCapabilityMenu(windowId, inv)));
-	public static final Supplier<MenuType<WasherGUIMenu>> WASHER_GUI = MENU_TYPE.register("washer_gui", () -> IMenuTypeExtension.create(WasherGUIMenu::new));
+	public static final Supplier<MenuType<WasherBlockEntityMenu>> WASHER_BLOCK_ENTITY_MENU = MENU_TYPE.register("washer_block_entity_menu", ()->IMenuTypeExtension.create((WasherBlockEntityMenu::new)));
 
 	/**
 	 * <p>自定义物品等内容的注册方法。

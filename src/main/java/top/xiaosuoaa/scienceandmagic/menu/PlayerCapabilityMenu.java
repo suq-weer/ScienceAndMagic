@@ -1,4 +1,4 @@
-package top.xiaosuoaa.scienceandmagic.client.gui.menu;
+package top.xiaosuoaa.scienceandmagic.menu;
 
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

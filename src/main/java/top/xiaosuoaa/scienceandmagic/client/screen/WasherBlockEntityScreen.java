@@ -1,4 +1,4 @@
-package top.xiaosuoaa.scienceandmagic.client.gui.screen;
+package top.xiaosuoaa.scienceandmagic.client.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
@@ -8,10 +8,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.jetbrains.annotations.NotNull;
 import top.xiaosuoaa.scienceandmagic.ScienceAndMagic;
-import top.xiaosuoaa.scienceandmagic.client.gui.menu.WasherGUIMenu;
+import top.xiaosuoaa.scienceandmagic.menu.WasherBlockEntityMenu;
 
-public class WasherGUIScreen extends AbstractContainerScreen<WasherGUIMenu> {
-	public WasherGUIScreen(WasherGUIMenu container, Inventory inventory, Component text) {
+public class WasherBlockEntityScreen extends AbstractContainerScreen<WasherBlockEntityMenu> {
+	public WasherBlockEntityScreen(WasherBlockEntityMenu container, Inventory inventory, Component text) {
 		super(container, inventory, text);
 		this.imageWidth = 176;
 		this.imageHeight = 166;
@@ -57,4 +57,3 @@ public class WasherGUIScreen extends AbstractContainerScreen<WasherGUIMenu> {
 		super.init();
 	}
 }
-

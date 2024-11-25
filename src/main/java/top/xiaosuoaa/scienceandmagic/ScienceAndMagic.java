@@ -35,7 +35,6 @@ import top.xiaosuoaa.scienceandmagic.basic.capability.PlayerCapabilityData;
 import top.xiaosuoaa.scienceandmagic.basic.capability.PlayerCapabilityProvider;
 import top.xiaosuoaa.scienceandmagic.basic.creativetabs.ModCreativeModeTabs;
 import top.xiaosuoaa.scienceandmagic.basic.element.ElementFunctions;
-import top.xiaosuoaa.scienceandmagic.basic.keybinding.KeyBindingNetwork;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -156,14 +155,6 @@ public class ScienceAndMagic {
 			            }
 		            },
 		            (playerCapabilityData, context) -> {}
-            )
-        );
-		registrar.playBidirectional(
-            KeyBindingNetwork.TYPE,
-            KeyBindingNetwork.STREAM_CODEC,
-            new DirectionalPayloadHandler<>(
-		            (payload, context) -> {},
-		            KeyBindingNetwork::handleData
             )
         );
 	}

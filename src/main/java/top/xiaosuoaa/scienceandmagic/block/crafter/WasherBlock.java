@@ -1,92 +1,71 @@
 package top.xiaosuoaa.scienceandmagic.block.crafter;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import top.xiaosuoaa.scienceandmagic.client.gui.menu.WasherGUIMenu;
 
-public class WasherBlock extends Block implements EntityBlock {
-	public static final DirectionProperty FACING = BlockStateProperties.FACING;
-	public static final BooleanProperty IS_WORKING = BooleanProperty.create("is_working");
+import java.util.Objects;
 
-	WasherBlockEntity washerBlockEntity;
+public class WasherBlock extends BaseEntityBlock {
+	public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
+	public static final BooleanProperty CRAFTING = BlockStateProperties.CRAFTING;
 
 	public WasherBlock() {
-		super(Properties.ofFullCopy(Blocks.IRON_BLOCK));
+		super(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
+		registerDefaultState(stateDefinition.any()
+                .setValue(FACING, Direction.NORTH)
+                .setValue(CRAFTING, false)
+        );
 	}
 
 	@Override
-	public @Nullable BlockState getStateForPlacement(@NotNull BlockPlaceContext pContext) {
-		registerDefaultState(stateDefinition.any().setValue(FACING, pContext.getHorizontalDirection()));
-		return super.getStateForPlacement(pContext);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        pBuilder.add(FACING, CRAFTING);
+    }
+
+    @Override
+    @Nullable
+    public BlockState getStateForPlacement(@NotNull BlockPlaceContext pContext) {
+        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection());
+    }
+
+	@Override
+	protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
+		return null;
 	}
 
 	@Override
-	protected @Nullable MenuProvider getMenuProvider(@NotNull BlockState pState, Level pLevel, @NotNull BlockPos pPos) {
-		BlockEntity tileEntity = pLevel.getBlockEntity(pPos);
-		return tileEntity instanceof MenuProvider menuProvider ? menuProvider : null;
-	}
-
-	@Override
-	protected @NotNull InteractionResult useWithoutItem(@NotNull BlockState pState, Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer, @NotNull BlockHitResult pHitResult) {
-		if (!pLevel.isClientSide && pPlayer instanceof ServerPlayer serverPlayer) {
-			serverPlayer.openMenu(
-					new SimpleMenuProvider(
-							WasherGUIMenu::new,
-							Component.translatable("block.science_and_magic.washer.tile")
-					),
-					pPos);
+	protected @NotNull ItemInteractionResult useItemOn(@NotNull ItemStack pStack, @NotNull BlockState pState, Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHitResult) {
+		if (!pLevel.isClientSide){
+            pPlayer.openMenu(Objects.requireNonNull(this.getMenuProvider(pState, pLevel, pPos)),pPos);
         }
-
-        return InteractionResult.SUCCESS;
-	}
-
-	@Override
-	protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> pBuilder) {
-		super.createBlockStateDefinition(pBuilder);
-		pBuilder.add(FACING);
-		pBuilder.add(IS_WORKING);
-	}
-
-	@Override
-	protected int getAnalogOutputSignal(@NotNull BlockState pState, Level pLevel, @NotNull BlockPos pPos) {
-		BlockEntity tileentity = pLevel.getBlockEntity(pPos);
-		if (tileentity instanceof WasherBlockEntity be)
-			return AbstractContainerMenu.getRedstoneSignalFromContainer(be);
-		else
-			return 0;
-
-	}
-
-	@Override
-	protected boolean triggerEvent(@NotNull BlockState pState, @NotNull Level pLevel, @NotNull BlockPos pPos, int pId, int pParam) {
-		super.triggerEvent(pState, pLevel, pPos, pId, pParam);
-		BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-		return blockEntity != null && blockEntity.triggerEvent(pId, pParam);
+		return super.useItemOn(pStack, pState, pLevel, pPos, pPlayer, pHand, pHitResult);
 	}
 
 	@Override
 	public @Nullable BlockEntity newBlockEntity(@NotNull BlockPos pPos, @NotNull BlockState pState) {
-		washerBlockEntity = new WasherBlockEntity(pPos, pState);
-		return washerBlockEntity;
+		return new WasherBlockEntity(pPos, pState);
+	}
+
+	@Override
+	protected @NotNull RenderShape getRenderShape(@NotNull BlockState pState) {
+		return RenderShape.MODEL;
 	}
 }

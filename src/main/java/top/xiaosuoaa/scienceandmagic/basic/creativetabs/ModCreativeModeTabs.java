@@ -38,7 +38,7 @@ public class ModCreativeModeTabs {
 					output.accept(NeoModRegister.LIGHTING_INIT_ITEM.get());
 					output.accept(NeoModRegister.STONE_INIT_ITEM.get());
 					//工作方块
-					output.accept(NeoModRegister.WASHER_ITEM.get());
+					output.accept(NeoModRegister.WASHER_BLOCK_ITEM.get());
 
 					ScienceAndMagic.info("已构建模组全物品创造选项卡");
 				})

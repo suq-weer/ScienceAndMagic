@@ -1,4 +1,4 @@
-package top.xiaosuoaa.scienceandmagic.client.gui.screen;
+package top.xiaosuoaa.scienceandmagic.client.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
@@ -14,7 +14,7 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import top.xiaosuoaa.scienceandmagic.NeoModRegister;
 import top.xiaosuoaa.scienceandmagic.basic.capability.PlayerCapability;
-import top.xiaosuoaa.scienceandmagic.client.gui.menu.PlayerCapabilityMenu;
+import top.xiaosuoaa.scienceandmagic.menu.PlayerCapabilityMenu;
 
 public class PlayerCapabilityScreen extends AbstractContainerScreen<PlayerCapabilityMenu> {
 	public PlayerCapabilityScreen(PlayerCapabilityMenu container, Inventory inventory, Component text) {
