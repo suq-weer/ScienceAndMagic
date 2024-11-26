@@ -1,6 +1,9 @@
 package top.xiaosuoaa.scienceandmagic;
 
+import com.google.common.base.Suppliers;
+import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
@@ -10,8 +13,10 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CeilingHangingSignBlock;
 import net.minecraft.world.level.block.SoundType;
@@ -39,6 +44,7 @@ import top.xiaosuoaa.scienceandmagic.block.crafter.WasherBlockEntity;
 import top.xiaosuoaa.scienceandmagic.block.nature.sequoia.SequoiaLeavesBlock;
 import top.xiaosuoaa.scienceandmagic.block.nature.sequoia.SequoiaLogBlock;
 import top.xiaosuoaa.scienceandmagic.client.ClientModEvents;
+import top.xiaosuoaa.scienceandmagic.datagen.recipe.WasherRecipe;
 import top.xiaosuoaa.scienceandmagic.menu.PlayerCapabilityMenu;
 import top.xiaosuoaa.scienceandmagic.entity.nature.sequoia.SequoiaBoat;
 import top.xiaosuoaa.scienceandmagic.entity.nature.sequoia.SequoiaChestBoat;
@@ -83,7 +89,7 @@ public class NeoModRegister {
 	public static final Supplier<MobEffect> ELEMENT_WATER = MOB_EFFECT.register("element_water", ()->new WaterElementMobEffect(MobEffectCategory.NEUTRAL, 0x474163));
 
 	//自定义数据组件
-	public static final DeferredRegister.DataComponents COMPONENTS = DeferredRegister.createDataComponents(ScienceAndMagic.MOD_ID);
+	public static final DeferredRegister.DataComponents COMPONENTS = DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, ScienceAndMagic.MOD_ID);
 	public static final DeferredHolder<DataComponentType<?>, DataComponentType<ElementComponentRecord>> ELEMENT_COMPONENT = COMPONENTS.registerComponentType(
 			"element_component", builder -> builder
 					.persistent(ELEMENT_COMPONENT_RECORD_CODEC)
@@ -174,6 +180,10 @@ public class NeoModRegister {
 	public static final DeferredRegister<MenuType<?>> MENU_TYPE = DeferredRegister.create(Registries.MENU, ScienceAndMagic.MOD_ID);
 	public static final Supplier<MenuType<PlayerCapabilityMenu>> PLAYER_CAPABILITY_GUI = MENU_TYPE.register("player_capability_gui", () -> IMenuTypeExtension.create((windowId, inv, data) -> new PlayerCapabilityMenu(windowId, inv)));
 	public static final Supplier<MenuType<WasherBlockEntityMenu>> WASHER_BLOCK_ENTITY_MENU = MENU_TYPE.register("washer_block_entity_menu", ()->IMenuTypeExtension.create((WasherBlockEntityMenu::new)));
+
+	//自定义配方
+	public static final DeferredRegister<RecipeType<?>> RECIPE_TYPE = DeferredRegister.create(Registries.RECIPE_TYPE, ScienceAndMagic.MOD_ID);
+	//public static final Supplier<RecipeType<WasherRecipe>> WASHER_RECIPE_TYPE = RECIPE_TYPE.register("washer_recipe_type", )
 
 	/**
 	 * <p>自定义物品等内容的注册方法。
