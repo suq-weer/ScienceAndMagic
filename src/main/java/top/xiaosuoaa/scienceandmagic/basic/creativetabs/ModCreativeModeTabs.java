@@ -12,11 +12,12 @@ import top.xiaosuoaa.scienceandmagic.ScienceAndMagic;
 import java.util.function.Supplier;
 
 public class ModCreativeModeTabs {
+	public static final Supplier<CreativeModeTab> SCIENCE_AND_MAGIC;
 	private static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(
 			BuiltInRegistries.CREATIVE_MODE_TAB,
 			ScienceAndMagic.MOD_ID
 	);
-	public static final Supplier<CreativeModeTab> SCIENCE_AND_MAGIC;
+
 	static {
 		SCIENCE_AND_MAGIC = CREATIVE_MODE_TABS.register(ScienceAndMagic.MOD_ID, () -> CreativeModeTab.builder()
 				.withTabsBefore(CreativeModeTabs.COMBAT)

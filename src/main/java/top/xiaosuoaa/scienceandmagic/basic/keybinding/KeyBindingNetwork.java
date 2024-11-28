@@ -20,11 +20,6 @@ public record KeyBindingNetwork(int eventType, int pressedms) implements CustomP
 		buffer.writeInt(message.pressedms);
 	}, (RegistryFriendlyByteBuf buffer) -> new KeyBindingNetwork(buffer.readInt(), buffer.readInt()));
 
-	@Override
-	public @NotNull Type<KeyBindingNetwork> type() {
-		return TYPE;
-	}
-
 	public static void handleData(final KeyBindingNetwork message, final IPayloadContext context) {
 		if (context.flow() == PacketFlow.SERVERBOUND) {
 			context.enqueueWork(() -> pressAction(context.player(), message.eventType)).exceptionally(e -> {
@@ -37,10 +32,15 @@ public record KeyBindingNetwork(int eventType, int pressedms) implements CustomP
 	public static void pressAction(Player entity, int type) {
 		if (type == 0) {
 			entity.openMenu(new SimpleMenuProvider(
-					(pContainerId, pPlayerInventory, pPlayer) ->  new PlayerCapabilityMenu(pContainerId, pPlayerInventory),
+					(pContainerId, pPlayerInventory, pPlayer) -> new PlayerCapabilityMenu(pContainerId, pPlayerInventory),
 					Component.translatable("gui.science_and_magic.player_capability_gui.label_player_capability_gui")
 			));
 		}
+	}
+
+	@Override
+	public @NotNull Type<KeyBindingNetwork> type() {
+		return TYPE;
 	}
 }
 

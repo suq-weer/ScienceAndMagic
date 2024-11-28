@@ -31,7 +31,7 @@ public class ClientModEvents {
 	public static void onClientSetup(FMLClientSetupEvent event) {
 		LOGGER.info("客户端正在启动……");
 		LOGGER.info("Minecraft 登录账号：{}", Minecraft.getInstance().getUser().getName());
-		event.enqueueWork(()->{
+		event.enqueueWork(() -> {
 			EntityRenderers.register(NeoModRegister.SEQUOIA_BOAT.get(), (EntityRendererProvider.Context pContext) -> new SequoiaBoatRenderer(pContext, false));
 			EntityRenderers.register(NeoModRegister.SEQUOIA_CHEST_BOAT.get(), (EntityRendererProvider.Context pContext) -> new SequoiaChestBoatRenderer(pContext, true));
 		});
@@ -55,6 +55,6 @@ public class ClientModEvents {
 
 	@SubscribeEvent
 	public static void onKeyRegister(RegisterKeyMappingsEvent event) {
-        event.register(KeyBinding.PLAYER_CAPABILITY_KEY);
-    }
+		event.register(KeyBinding.PLAYER_CAPABILITY_KEY);
+	}
 }

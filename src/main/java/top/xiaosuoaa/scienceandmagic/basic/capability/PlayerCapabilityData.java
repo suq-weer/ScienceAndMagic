@@ -12,9 +12,9 @@ public record PlayerCapabilityData(int ep) implements CustomPacketPayload {
 	public static final CustomPacketPayload.Type<PlayerCapabilityData> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(ScienceAndMagic.MOD_ID, "player_data"));
 
 	public static final StreamCodec<ByteBuf, PlayerCapabilityData> STREAM_CODEC = StreamCodec.composite(
-        ByteBufCodecs.VAR_INT, PlayerCapabilityData::ep,
-        PlayerCapabilityData::new
-    );
+			ByteBufCodecs.VAR_INT, PlayerCapabilityData::ep,
+			PlayerCapabilityData::new
+	);
 
 	@Override
 	public @NotNull Type<? extends CustomPacketPayload> type() {

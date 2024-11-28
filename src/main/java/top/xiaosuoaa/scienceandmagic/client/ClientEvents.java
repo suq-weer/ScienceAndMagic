@@ -24,7 +24,7 @@ import static top.xiaosuoaa.scienceandmagic.basic.element.foritem.ChangeMinecraf
 @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
 public class ClientEvents {
 	@SubscribeEvent
-    public static void onItemTooltip(ItemTooltipEvent event) {
+	public static void onItemTooltip(ItemTooltipEvent event) {
 		changeMinecraftTooltip(event);
 	}
 
@@ -39,23 +39,23 @@ public class ClientEvents {
 		}
 		if (capability != null) {
 			int maxX = 120;
-			double maxEPX = maxX*((double) capability.getEp() / (double) capability.getMEp());
+			double maxEPX = maxX * ((double) capability.getEp() / (double) capability.getMEp());
 			int aH = guiGraphics.guiHeight() - 10;
-			guiGraphics.fill(5, aH, maxX+5, aH+5, new Color(0,0,0, 0.5f).getRGB());
-			guiGraphics.fill(5, aH, (int) maxEPX+5, aH+5, new Color(0x66bb33).getRGB());
+			guiGraphics.fill(5, aH, maxX + 5, aH + 5, new Color(0, 0, 0, 0.5f).getRGB());
+			guiGraphics.fill(5, aH, (int) maxEPX + 5, aH + 5, new Color(0x66bb33).getRGB());
 			guiGraphics.drawString(
 					minecraft.font,
-					Component.translatable("gui.science_and_magic.ep").append(capability.getEp()+"/"+capability.getMEp()),
+					Component.translatable("gui.science_and_magic.ep").append(capability.getEp() + "/" + capability.getMEp()),
 					10,
-					aH-5,
+					aH - 5,
 					Color.WHITE.getRGB());
 		}
 	}
 
 	@SubscribeEvent
-    public static void onKeyInput(InputEvent.Key event) {
-        if (KeyBinding.PLAYER_CAPABILITY_KEY.consumeClick()) {
-				PacketDistributor.sendToServer(new KeyBindingNetwork(0, 0));
-        }
-    }
+	public static void onKeyInput(InputEvent.Key event) {
+		if (KeyBinding.PLAYER_CAPABILITY_KEY.consumeClick()) {
+			PacketDistributor.sendToServer(new KeyBindingNetwork(0, 0));
+		}
+	}
 }

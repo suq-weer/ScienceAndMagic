@@ -17,15 +17,21 @@ import java.util.Objects;
 public record ElementComponentRecord(List<String> element) {
 	public static final Codec<ElementComponentRecord> ELEMENT_COMPONENT_RECORD_CODEC = RecordCodecBuilder.create(instance ->
 			instance.group(Codec.list(Codec.STRING)
-					.fieldOf("element")
-					.forGetter(ElementComponentRecord::element))
+							.fieldOf("element")
+							.forGetter(ElementComponentRecord::element))
 					.apply(instance, ElementComponentRecord::new)
 	);
 	public static final StreamCodec<ByteBuf, ElementComponentRecord> ELEMENT_COMPONENT_RECORD_STREAM_CODEC = StreamCodec.composite(
-        ByteBufCodecs.fromCodec(Codec.list(Codec.STRING)), ElementComponentRecord::element,
-        ElementComponentRecord::new
+			ByteBufCodecs.fromCodec(Codec.list(Codec.STRING)), ElementComponentRecord::element,
+			ElementComponentRecord::new
 	);
 	public static final StreamCodec<ByteBuf, ElementComponentRecord> BUF_ELEMENT_COMPONENT_RECORD_STREAM_CODEC = StreamCodec.unit(new ElementComponentRecord(new ArrayList<>()));
+	public static final String FIRE = "fire";
+	public static final String ICE = "ice";
+	public static final String WATER = "water";
+	public static final String STONE = "stone";
+	public static final String WOOD = "wood";
+	public static final String LIGHTING = "lighting";
 
 	/*
 	 * 读取元素组件转换为组件外显译名。
@@ -55,11 +61,4 @@ public record ElementComponentRecord(List<String> element) {
 		}
 		componentList.add(line);
 	}
-
-	public static final String FIRE = "fire";
-	public static final String ICE = "ice";
-	public static final String WATER = "water";
-	public static final String STONE = "stone";
-	public static final String WOOD = "wood";
-	public static final String LIGHTING = "lighting";
 }

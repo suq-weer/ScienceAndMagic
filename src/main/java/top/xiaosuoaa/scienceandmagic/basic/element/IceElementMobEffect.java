@@ -4,7 +4,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.NotNull;
 
-public class IceElementMobEffect extends AbstractNatureElementMobEffect{
+public class IceElementMobEffect extends AbstractNatureElementMobEffect {
 	public IceElementMobEffect(MobEffectCategory pCategory, int pColor) {
 		super(pCategory, pColor);
 	}

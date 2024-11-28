@@ -20,7 +20,7 @@ public class ChangeMinecraftElement {
 		list.add(ElementComponentRecord.WATER);
 		list.add(ElementComponentRecord.LIGHTING);
 		event.modify(Items.STONE_SWORD, builder ->
-		    builder.set(NeoModRegister.ELEMENT_COMPONENT.value(), new ElementComponentRecord(list))
+				builder.set(NeoModRegister.ELEMENT_COMPONENT.value(), new ElementComponentRecord(list))
 		);
 	}
 

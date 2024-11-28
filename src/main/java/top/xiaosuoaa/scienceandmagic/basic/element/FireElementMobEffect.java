@@ -4,7 +4,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.NotNull;
 
-public class FireElementMobEffect extends AbstractNatureElementMobEffect{
+public class FireElementMobEffect extends AbstractNatureElementMobEffect {
 	public FireElementMobEffect(MobEffectCategory pCategory, int pColor) {
 		super(pCategory, pColor);
 	}

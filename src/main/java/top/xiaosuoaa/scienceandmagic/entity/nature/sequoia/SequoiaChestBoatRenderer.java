@@ -1,4 +1,5 @@
 package top.xiaosuoaa.scienceandmagic.entity.nature.sequoia;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.model.ListModel;

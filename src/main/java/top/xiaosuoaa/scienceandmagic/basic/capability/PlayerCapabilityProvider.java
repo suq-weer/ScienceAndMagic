@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 
-public class PlayerCapabilityProvider implements ICapabilityProvider<Player,Void, PlayerCapability>, INBTSerializable<Tag> {
+public class PlayerCapabilityProvider implements ICapabilityProvider<Player, Void, PlayerCapability>, INBTSerializable<Tag> {
 	private PlayerCapability playerCapability = null;
 	private Player player;
 
@@ -18,13 +18,13 @@ public class PlayerCapabilityProvider implements ICapabilityProvider<Player,Void
 		this.player = player;
 		int level = player.experienceLevel;
 		double v = level * level / 0.1 + 100;
-        if (this.playerCapability == null) {
-	        this.playerCapability = new PlayerCapability((int) v);
-        } else {
-	        this.playerCapability.setMEp((int) v);
-        }
-        return this.playerCapability;
-    }
+		if (this.playerCapability == null) {
+			this.playerCapability = new PlayerCapability((int) v);
+		} else {
+			this.playerCapability.setMEp((int) v);
+		}
+		return this.playerCapability;
+	}
 
 	@Override
 	public @Nullable PlayerCapability getCapability(@NotNull Player object, Void context) {
@@ -34,8 +34,8 @@ public class PlayerCapabilityProvider implements ICapabilityProvider<Player,Void
 	@Override
 	public @UnknownNullability Tag serializeNBT(HolderLookup.@NotNull Provider provider) {
 		CompoundTag nbt = new CompoundTag();
-        createPlayerEP(player).saveNBTData(nbt);
-        return nbt;
+		createPlayerEP(player).saveNBTData(nbt);
+		return nbt;
 	}
 
 	@Override

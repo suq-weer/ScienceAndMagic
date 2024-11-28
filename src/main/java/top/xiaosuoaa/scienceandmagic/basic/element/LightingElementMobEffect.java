@@ -5,7 +5,7 @@ import net.minecraft.world.entity.LivingEntity;
 
 import java.util.Random;
 
-public class LightingElementMobEffect extends AbstractNatureElementMobEffect{
+public class LightingElementMobEffect extends AbstractNatureElementMobEffect {
 	public LightingElementMobEffect(MobEffectCategory pCategory, int pColor) {
 		super(pCategory, pColor);
 	}

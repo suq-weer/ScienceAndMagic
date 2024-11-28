@@ -9,7 +9,7 @@ public class InitItemModel<T extends GeoItem> extends GeoModel<T> {
 	private final ResourceLocation textureResource;
 
 	public InitItemModel(String location) {
-		textureResource = ResourceLocation.fromNamespaceAndPath(ScienceAndMagic.MOD_ID, "textures/item/"+location);
+		textureResource = ResourceLocation.fromNamespaceAndPath(ScienceAndMagic.MOD_ID, "textures/item/" + location);
 	}
 
 	@Override

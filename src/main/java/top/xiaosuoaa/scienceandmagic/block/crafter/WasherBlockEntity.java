@@ -54,9 +54,25 @@ public class WasherBlockEntity extends BlockEntity implements MenuProvider {
 		};
 	}
 
+	/**
+	 * 每 Tick 服务端逻辑。
+	 *
+	 * @param pLevel       {@link Level}
+	 * @param pPos         {@link BlockPos}
+	 * @param pState       {@link BlockState}
+	 * @param pBlockEntity {@link WasherBlockEntity}
+	 */
+	public static void serverTick(Level pLevel, BlockPos pPos, BlockState pState, WasherBlockEntity pBlockEntity) {
+		if (pLevel != null && !pLevel.isClientSide) {
+			for (int i = 0; i < pBlockEntity.stackSize; i++) {
+				pBlockEntity.data.set(i, pBlockEntity.itemStackHandler.getStackInSlot(i).getCount());
+			}
+		}
+	}
+
 	@Override
 	public @NotNull Component getDisplayName() {
-		return Component.translatable("gui."+ ScienceAndMagic.MOD_ID + ".crafter_washer_gui");
+		return Component.translatable("gui." + ScienceAndMagic.MOD_ID + ".crafter_washer_gui");
 	}
 
 	//创建容器
@@ -71,6 +87,7 @@ public class WasherBlockEntity extends BlockEntity implements MenuProvider {
 		super.loadAdditional(pTag, pRegistries);
 		this.itemStackHandler.deserializeNBT(pRegistries, pTag);
 	}
+
 	@Override
 	protected void saveAdditional(@NotNull CompoundTag pTag, HolderLookup.@NotNull Provider pRegistries) {
 		super.saveAdditional(pTag, pRegistries);
@@ -80,20 +97,5 @@ public class WasherBlockEntity extends BlockEntity implements MenuProvider {
 	//容器数据 getter
 	public ItemStackHandler getItemStackHandler() {
 		return this.itemStackHandler;
-	}
-
-	/**
-	 * 每 Tick 服务端逻辑。
-	 * @param pLevel {@link Level}
-	 * @param pPos {@link BlockPos}
-	 * @param pState {@link BlockState}
-	 * @param pBlockEntity {@link WasherBlockEntity}
-	 */
-	public static void serverTick(Level pLevel, BlockPos pPos, BlockState pState, WasherBlockEntity pBlockEntity) {
-		if (pLevel!=null&& !pLevel.isClientSide) {
-			for (int i = 0; i < pBlockEntity.stackSize; i++) {
-				pBlockEntity.data.set(i, pBlockEntity.itemStackHandler.getStackInSlot(i).getCount());
-			}
-		}
 	}
 }

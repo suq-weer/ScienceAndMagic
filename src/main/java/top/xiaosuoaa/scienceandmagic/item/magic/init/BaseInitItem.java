@@ -17,6 +17,8 @@ import top.xiaosuoaa.scienceandmagic.basic.components.ElementComponentRecord;
 import java.util.List;
 
 public class BaseInitItem extends Item implements GeoItem {
+	private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
+
 	public BaseInitItem(List<String> arrayList) {
 		super(new Properties()
 				.rarity(Rarity.UNCOMMON)
@@ -25,7 +27,6 @@ public class BaseInitItem extends Item implements GeoItem {
 		);
 	}
 
-	private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 	private <T extends BaseInitItem> PlayState playState(AnimationState<T> animationState) {
 		animationState.getController().setAnimation(RawAnimation.begin().thenLoop("animation.init.loop"));
 		return PlayState.CONTINUE;

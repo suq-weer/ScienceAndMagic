@@ -9,7 +9,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,21 +33,21 @@ public class WasherBlock extends BaseEntityBlock {
 	public WasherBlock() {
 		super(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK));
 		registerDefaultState(stateDefinition.any()
-                .setValue(FACING, Direction.NORTH)
-                .setValue(CRAFTING, false)
-        );
+				.setValue(FACING, Direction.NORTH)
+				.setValue(CRAFTING, false)
+		);
 	}
 
 	@Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING, CRAFTING);
-    }
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+		pBuilder.add(FACING, CRAFTING);
+	}
 
-    @Override
-    @Nullable
-    public BlockState getStateForPlacement(@NotNull BlockPlaceContext pContext) {
-        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection());
-    }
+	@Override
+	@Nullable
+	public BlockState getStateForPlacement(@NotNull BlockPlaceContext pContext) {
+		return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection());
+	}
 
 	@Override
 	protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
@@ -53,11 +56,13 @@ public class WasherBlock extends BaseEntityBlock {
 
 	@Override
 	protected @NotNull ItemInteractionResult useItemOn(@NotNull ItemStack pStack, @NotNull BlockState pState, Level pLevel, @NotNull BlockPos pPos, @NotNull Player pPlayer, @NotNull InteractionHand pHand, @NotNull BlockHitResult pHitResult) {
-		if (!pLevel.isClientSide){
-            pPlayer.openMenu(Objects.requireNonNull(this.getMenuProvider(pState, pLevel, pPos)),pPos);
-        }
+		if (!pLevel.isClientSide) {
+			pPlayer.openMenu(Objects.requireNonNull(this.getMenuProvider(pState, pLevel, pPos)), pPos);
+			return ItemInteractionResult.SUCCESS;
+		}
 		return super.useItemOn(pStack, pState, pLevel, pPos, pPlayer, pHand, pHitResult);
 	}
+
 
 	@Override
 	public @Nullable BlockEntity newBlockEntity(@NotNull BlockPos pPos, @NotNull BlockState pState) {

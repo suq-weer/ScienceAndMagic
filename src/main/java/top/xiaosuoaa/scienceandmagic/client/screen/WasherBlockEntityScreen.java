@@ -11,13 +11,13 @@ import top.xiaosuoaa.scienceandmagic.ScienceAndMagic;
 import top.xiaosuoaa.scienceandmagic.menu.WasherBlockEntityMenu;
 
 public class WasherBlockEntityScreen extends AbstractContainerScreen<WasherBlockEntityMenu> {
+	private static final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(ScienceAndMagic.MOD_ID, "textures/screens/washer_gui.png");
+
 	public WasherBlockEntityScreen(WasherBlockEntityMenu container, Inventory inventory, Component text) {
 		super(container, inventory, text);
 		this.imageWidth = 176;
 		this.imageHeight = 166;
 	}
-
-	private static final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(ScienceAndMagic.MOD_ID, "textures/screens/washer_gui.png");
 
 	@Override
 	public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
