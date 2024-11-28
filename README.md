@@ -14,7 +14,7 @@
 >
 > Tip: This repository does not accept PRs that are not trusted by the repository creator. If there is a bug in this repository, please submit an issue.
 
-> 科学与魔法 © 2024 by SAM Team 采用知识共享署名-非商业性-相同方式共享 4.0 国际许可协议进行许可。要查看该许可的副本，请访问 https://creativecommons.org/licenses/by-nc-sa/4.0/。
+> 科学与魔法 © 2024 by SAM Team 采用知识共享署名-非商业性-相同方式共享 4.0 国际许可协议进行许可。要查看该许可的副本，请访问 https://creativecommons.org/licenses/by-nc-sa/4.0/
 > 
 > 提示：该项目不接受仓库创建者不信任的PR，如有 Bug 请提交 issue。
 
