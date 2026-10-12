@@ -1,0 +1,8 @@
+{
+  "entities": [
+    "#curios:player_like"
+  ],
+  "size": 1,
+  "order": 60,
+  "icon": "science_and_magic:slot/bone_leg_right"
+}

@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "team.xcmt.sam.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "LivingEntityMixin",
+    "PlayerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

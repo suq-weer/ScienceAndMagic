@@ -1,0 +1,58 @@
+{
+  "credit": "Made with Xiaosu",
+  "parent": "builtin/entity",
+  "texture_size": [
+    32,
+    32
+  ],
+  "display": {
+    "thirdperson_righthand": {
+      "translation": [
+        0,
+        -2,
+        0
+      ]
+    },
+    "thirdperson_lefthand": {
+      "translation": [
+        0,
+        -2,
+        0
+      ]
+    },
+    "gui": {
+      "translation": [
+        0,
+        -7,
+        0
+      ],
+      "scale": [
+        2,
+        2,
+        2
+      ]
+    },
+    "head": {
+      "translation": [
+        0,
+        7.5,
+        0
+      ]
+    },
+    "fixed": {
+      "translation": [
+        0,
+        -7,
+        0
+      ],
+      "scale": [
+        2,
+        2,
+        2
+      ]
+    }
+  },
+  "textures": {
+    "particle": "science_and_magic:item/fire_init"
+  }
+}
