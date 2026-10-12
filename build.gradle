@@ -259,12 +259,30 @@ publishing {
     publications {
         register('mavenJava', MavenPublication) {
             from components.getByName('java')
+            // 发布产物的 pom 里也声明许可证，方便使用方识别协议
+            pom {
+                licenses {
+                    license {
+                        name = 'GNU General Public License v3.0 or later'
+                        url = 'https://www.gnu.org/licenses/gpl-3.0.html'
+                        distribution = 'repo'
+                    }
+                }
+            }
         }
     }
     repositories {
         maven {
             url "file://${project.projectDir}/repo"
         }
+    }
+}
+
+// GPLv3 §4 要求向接收者提供许可证副本，所以把许可证与授权范围声明一起打进 jar。
+tasks.named('jar', Jar) {
+    into('META-INF') {
+        from 'LICENSE.txt'
+        from 'NOTICE.md'
     }
 }
 

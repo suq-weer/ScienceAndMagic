@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// Copyright (C) 2026 XCM Team (Xiaosu <xiaosusn8@qq.com>)
+
 package team.xcmt.sam.content;
 
 import java.util.ArrayList;

@@ -50,3 +50,14 @@ git clone https://github.com/suq-weer/ScienceAndMagic.git
 ```
 
 > 模组采用了依赖 Datagen 的方式来生成部分核心内容，为了保证表现一致性，仓库把 `src/generated` 添加到了 `.gitgnore`，请在启动游戏实例前注意，或者改用 Gradle 运行配置 `runClientAfterData`。
+
+## 开源许可证
+
+本模组采用**分部分授权**，完整说明见 [`NOTICE.md`](./NOTICE.md)：
+
+- **代码与文档**：`GPL-3.0-or-later`（GNU 通用公共许可证第 3 版或更高版本），许可证全文见 [`LICENSE.txt`](./LICENSE.txt)。
+  你可以自由使用、研究、修改与再分发，但需遵守 GPLv3：分发时随附许可证全文、保留原有的版权与许可声明、修改版需标注「已修改」、派生作品整体继续以 GPLv3 授权；本软件不提供任何担保。
+  所有 Java 源文件顶部都带有 `SPDX-License-Identifier: GPL-3.0-or-later` 声明。
+- **美术素材与创作数据**（`src/main/resources/assets/**` 的贴图与界面、`src/main/resources/gen/**` 的树形预设、`src/main/resources/data/**` 的数据）：**保留所有权利（All Rights Reserved）**，仅允许随本模组原样分发，不得单独提取、修改或再分发。
+- **模板与第三方**：NeoForged MDK 模板文件为 MIT（见 [`TEMPLATE_LICENSE.txt`](./TEMPLATE_LICENSE.txt)）；Gradle Wrapper 属 Gradle 项目；NeoForge、Curios、JEI 等依赖遵循各自许可证。本项目不分发任何 Mojang 的版权素材。
+- **贡献**：提交 Pull Request 即表示你同意自己的代码贡献以 `GPL-3.0-or-later` 授权。
